@@ -42,6 +42,25 @@ return {
           },
           include_surrounding_whitespace = true,
         },
+        swap = {
+          enable = true,
+          swap_next = {
+            ["<leader>sn"] = "@parameter.inner",
+          },
+          swap_previous = {
+            ["<leader>sp"] = "@parameter.inner",
+          },
+        },
+        -- check if this section is actually needed or not
+        lsp_interop = {
+          enable = true,
+          border = 'none',
+          floating_preview_opts = {},
+          peek_definition_code = {
+            ["<leader>df"] = "@function.outer",
+            ["<leader>dF"] = "@class.outer",
+          },
+        },
       },
     })
   end,
