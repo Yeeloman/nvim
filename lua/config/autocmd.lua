@@ -22,6 +22,8 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function()
+    local pos = vim.fn.getpos(".")
     vim.cmd("normal gg=G")
+    vim.fn.setpos(".", pos)
   end,
 })
