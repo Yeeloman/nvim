@@ -31,6 +31,7 @@
   "snacks.nvim": { "branch": "main", "commit": "fc71e36c90f44e0e6180ac6c5f035817709569d8" },
   "stcursorword": { "branch": "main", "commit": "f6810ed5001eeee6061fdce77b292a5565823ded" },
   "sunglasses.nvim": { "branch": "main", "commit": "651a9bdbee2b4ce4c96c42be4b8029b7e3d87d06" },
+  "telescope.nvim": { "branch": "master", "commit": "2eca9ba22002184ac05eddbe47a7fe2d5a384dfc" },
   "transparent.nvim": { "branch": "main", "commit": "8a2749a2fa74f97fe6557f61b89ac7fd873f3c21" },
   "treesj": { "branch": "main", "commit": "03415ac60791d48e120a80d37e080744faf3ac15" },
   "twilight.nvim": { "branch": "main", "commit": "1584c0b0a979b71fd86b18d302ba84e9aba85b1b" },
