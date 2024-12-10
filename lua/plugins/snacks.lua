@@ -8,7 +8,7 @@ return {
       sections = {
         {
           section = "terminal",
-          cmd = "chafa ./eclipse.jpg --format symbols --symbols vhalf --size 60x17 --stretch; sleep .1",
+          cmd = "chafa $HOME/.config/nvim/lua/eclipse.jpg --format symbols --symbols vhalf --size 60x17 --stretch; sleep .1",
           height = 17,
           padding = 1,
         },
