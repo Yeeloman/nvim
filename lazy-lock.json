@@ -19,7 +19,15 @@
   "neotab.nvim": { "branch": "master", "commit": "f6ed1ef49f32586f5db95edae5d6f264c8180d85" },
   "nvim-lspconfig": { "branch": "master", "commit": "b8b725659fa60d2c5f5bd7459bcfee1d8b34acd5" },
   "nvim-treesitter": { "branch": "master", "commit": "0c26a5c4bc407fdbca545ab25cf6084fd069444b" },
+  "nvim-treesitter-context": { "branch": "master", "commit": "3288c5af7d3820d716272f1d05ab661cc540a5d6" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "ad8f0a472148c3e0ae9851e26a722ee4e29b1595" },
   "nvim-ts-autotag": { "branch": "main", "commit": "1cca23c9da708047922d3895a71032bc0449c52d" },
-  "nvim-web-devicons": { "branch": "master", "commit": "87c34abe5d1dc7c1c0a95aaaf888059c614c68ac" }
+  "nvim-web-devicons": { "branch": "master", "commit": "87c34abe5d1dc7c1c0a95aaaf888059c614c68ac" },
+  "stcursorword": { "branch": "main", "commit": "f6810ed5001eeee6061fdce77b292a5565823ded" },
+  "sunglasses.nvim": { "branch": "main", "commit": "651a9bdbee2b4ce4c96c42be4b8029b7e3d87d06" },
+  "treesj": { "branch": "main", "commit": "03415ac60791d48e120a80d37e080744faf3ac15" },
+  "twilight.nvim": { "branch": "main", "commit": "1584c0b0a979b71fd86b18d302ba84e9aba85b1b" },
+  "ultimate-autopair.nvim": { "branch": "v0.6", "commit": "9e3209190c22953566ae4e6436ad2b4ff4dabb95" },
+  "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
+  "vim-svelte-plugin": { "branch": "master", "commit": "fcc81292340c0969e83131021c5a6c9aa0c741dc" }
 }
