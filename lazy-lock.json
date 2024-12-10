@@ -39,5 +39,6 @@
   "twilight.nvim": { "branch": "main", "commit": "1584c0b0a979b71fd86b18d302ba84e9aba85b1b" },
   "ultimate-autopair.nvim": { "branch": "v0.6", "commit": "9e3209190c22953566ae4e6436ad2b4ff4dabb95" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
-  "vim-svelte-plugin": { "branch": "master", "commit": "fcc81292340c0969e83131021c5a6c9aa0c741dc" }
+  "vim-svelte-plugin": { "branch": "master", "commit": "fcc81292340c0969e83131021c5a6c9aa0c741dc" },
+  "which-key.nvim": { "branch": "main", "commit": "9b365a6428a9633e3eeb34dbef1b791511c54f70" }
 }
