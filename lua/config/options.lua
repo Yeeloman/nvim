@@ -19,7 +19,7 @@ opt.ignorecase = true
 opt.smartcase = true
 opt.hlsearch = true
 
-  -- Appearance
+-- Appearance
 opt.foldmethod = "indent"
 opt.foldenable = false
 opt.number = true
