@@ -6,7 +6,7 @@ return {
     vim.keymap.set("n", "<leader>ol", "<cmd>Lspsaga outline<CR>", { desc = "Toggle Lsp Outline" })
     vim.keymap.set("n", "<leader>oa", "<cmd>Lspsaga code_action<CR>", { desc = "Code action" })
     vim.keymap.set("n", "<leader>of", "<cmd>Lspsaga finder<CR>", { desc = "Lsp finder" })
-    vim.keymap.set("n", "<leader>ot", "<cmd>Lspsaga term_toggle<CR>", { desc = "Toggle terminal" })
+    -- vim.keymap.set("n", "<leader>ot", "<cmd>Lspsaga term_toggle<CR>", { desc = "Toggle terminal" })
     vim.keymap.set("n", "<leader>oh", "<cmd>Lspsaga hover_doc<CR>", { desc = "Hover documentation" })
     vim.keymap.set("n", "<leader>or", "<cmd>Lspsaga rename<CR>", { desc = "Rename variable" })
     vim.keymap.set("n", "<leader>opd", "<cmd>Lspsaga peek_definition<CR>", { desc = "Peek definition" })
