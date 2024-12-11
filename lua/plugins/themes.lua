@@ -6,7 +6,7 @@ return {
     config = function()
       require('midnight').setup({
       })
-      vim.cmd("colorscheme midnight")
+      vim.cmd("colorscheme habamax")
     end,
   },
 }
