@@ -1,6 +1,7 @@
 return {
   "nvim-lualine/lualine.nvim",
-  event = "VeryLazy",
+  -- event = "VeryLazy",
+  lazy = false,
   config = function()
     -- Color table for highlights
     -- stylua: ignore
