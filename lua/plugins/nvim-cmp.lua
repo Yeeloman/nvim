@@ -7,16 +7,23 @@ return {
     "hrsh7th/cmp-cmdline",    -- Command-line completions
     "L3MON4D3/LuaSnip",       -- Snippet engine
     "saadparwaiz1/cmp_luasnip", -- Snippet completions
+    "rafamadriz/friendly-snippets",
   },
   config = function()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
+
+    require("luasnip.loaders.from_vscode").lazy_load()
 
     cmp.setup({
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
         end,
+      },
+      window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
       },
       mapping = {
         -- Scroll through the suggestion popup menu
