@@ -42,7 +42,14 @@ return {
       },
     })
     local builtin = require('telescope.builtin')
+    local function find_files_parent_dir()
+      builtin.find_files({
+        search_dirs = { vim.fn.expand('%:p:h') .. '/..' .. '/..' },
+        prompt_title = 'Find Files in Parent Directory'
+      })
+    end
     vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+    vim.keymap.set('n', '<leader>fx', find_files_parent_dir, { desc = 'Telescope find files in parent directory' })
     vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
     vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
     -- vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
