@@ -1,9 +1,9 @@
+local keymap = vim.keymap
 local lang_servers = {
   "lua_ls",
   "rust_analyzer",
   "bashls",
   "clangd",
-  "ast_grep",
   "css_variables",
   "tailwindcss",
   "jinja_lsp",
@@ -12,7 +12,6 @@ local lang_servers = {
   "ts_ls",
   "jsonls",
   "grammarly",
-  "pylyzer",
   "pyright",
   "sqlls",
   "svelte",
@@ -22,10 +21,30 @@ local lang_servers = {
   "emmet_language_server",
 }
 return {
-
+  {
+    "jay-babu/mason-null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "williamboman/mason.nvim",
+      "nvimtools/none-ls.nvim",
+    },
+    config = function()
+      require("mason-null-ls").setup({
+        ensure_installed = {
+          "stylua",
+          "prittier",
+          "black",
+          "djlint",
+          "jinja_lsp",
+          "eslint_d",
+        }
+      })
+      keymap.set("n", "<leader>gf", vim.lsp.buf.format, { desc = "Format the current file" })
+    end,
+  },
   {
     "neovim/nvim-lspconfig",
-    config = function ()
+    config = function()
       local lspconfig = require("lspconfig")
 
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -39,14 +58,14 @@ return {
         end
       end
 
-      vim.keymap.set('n', 'H', vim.lsp.buf.hover, { desc = "Show Def in Hover window" })
-      vim.keymap.set('n', '<leader>gtd', vim.lsp.buf.definition, { desc = "Go to definition" })
-      vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = "Code Action" })
-    end
+      vim.keymap.set("n", "H", vim.lsp.buf.hover, { desc = "Show Def in Hover window" })
+      vim.keymap.set("n", "<leader>gtd", vim.lsp.buf.definition, { desc = "Go to definition" })
+      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
+    end,
   },
   {
     "williamboman/mason.nvim",
-    config = function ()
+    config = function()
       require("mason").setup({})
     end,
   },
@@ -62,6 +81,5 @@ return {
         ensure_installed = lang_servers,
       })
     end,
-  }
+  },
 }
-
