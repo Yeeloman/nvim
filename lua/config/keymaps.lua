@@ -28,6 +28,9 @@ keymap.set("v", "<S-k>", ":m '<-2<CR>gv=gv")
 keymap.set("v", "<S-j>", ":m '>+1<CR>gv=gv")
 
 
+-- key map for lazy
+keymap.set('n', '<leader>l', ":Lazy<CR>", { desc = "Open lazy", noremap = true, silent = true })
+
 -- Safely require the repeatable_move module
 local ok, ts_repeat_move = pcall(require, "nvim-treesitter.textobjects.repeatable_move")
 if ok then
