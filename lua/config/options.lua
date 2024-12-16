@@ -1,8 +1,4 @@
 local opt = vim.opt
-local g = vim.g
-
-g.mapleader = " "
-g.maplocalleader = "\\"
 
 -- Tab / Indentation
 opt.tabstop = 2
@@ -63,3 +59,6 @@ opt.background = "dark"
 opt.guicursor = "n-v-c:block,i-ci-ve:block"
 opt.virtualedit = "block"
 opt.inccommand = "split"
+
+vim.o.undofile = true -- Save undo history (default: false)
+

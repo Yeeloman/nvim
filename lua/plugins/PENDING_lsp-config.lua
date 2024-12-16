@@ -1,3 +1,4 @@
+if true then return {} end
 local keymap = vim.keymap
 local lang_servers = {
   "lua_ls",
