@@ -28,7 +28,7 @@ return {
             theme = "ivy",
             previewer = true,
             layout_config = {
-              height = 0.4,
+              height = 0.7,
               prompt_position = "top",
             },
           },
