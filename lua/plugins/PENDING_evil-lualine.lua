@@ -1,3 +1,4 @@
+if true then return {} end
 return {
   "nvim-lualine/lualine.nvim",
   -- event = "VeryLazy",
