@@ -250,6 +250,7 @@ return {
       color = { fg = colors.yellow, gui = 'bold' },
       cond = conditions.hide_in_width,
     }
+
     -- ins_left {
     --   'diff',
     --   symbols = { added = '󰯫 ', modified = '󰰏 ', removed = '󰰞 ' },
@@ -270,6 +271,11 @@ return {
         cond = conditions.hide_in_width,
       }
     end
+
+    ins_left {
+      'searchcount',
+      color = { fg = colors.green, gui = 'bold' },
+    }
 
     -- RIGHT
     -- local function get_weather()
@@ -294,6 +300,11 @@ return {
     --   icon = '󰖐 ',
     --   color = { fg = colors.cyan, gui = 'bold' },
     -- }
+    --
+    ins_right {
+      'selectioncount',
+      color = { fg = colors.green, gui = 'bold' },
+    }
 
     ins_right {
       function()
