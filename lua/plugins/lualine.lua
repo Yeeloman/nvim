@@ -73,54 +73,45 @@ return {
       end,
     }
 
-    -- Functions for random icons
-    local function get_random_rune()
-      local runes = { '✠', '⛧', '𖤐', 'ᛟ', 'ᚨ', 'ᚱ', 'ᚷ', 'ᚠ', 'ᛉ', 'ᛊ', 'ᛏ', '☠', '☾', '♰', '✟', '☽', '⚚', '🜏' }
-      return runes[math.random(#runes)]
-    end
-
-    local function get_random_star()
-        local stars = { '★', '☆', '✧', '✦', '✶', '✷', '✸', '✹' }
-        return stars[math.random(#stars)]
-      end
-
-    local function get_random_heart()
-        local hearts = { '❤', '♥', '♡', '❦', '❧' }
-        return hearts[math.random(#hearts)]
-      end
-
-      local function get_random_corner()
-        local separators = { '', '', '', '' }
-        return separators[math.random(#separators)]
-      end
-
-    local function get_random_arcane_symbol()
-        local symbols = { }
-        return symbols[math.random(#symbols)]
-    end
-
-
-    local function get_random_icon(icon_list)
-      return icon_list[math.random(#icon_list)]
-    end
-
+    -- Logic for random icons
+    math.randomseed(12345)
     local icon_sets = {
-  { '✠', '⛧', '𖤐', 'ᛟ', 'ᚨ', 'ᚱ', 'ᚷ', 'ᚠ', 'ᛉ', 'ᛊ', 'ᛏ', '☠', '☾', '♰', '✟', '☽', '⚚', '🜏' }, -- Runes
-      { '★', '☆', '✧', '✦', '✶', '✷', '✸', '✹' }, -- Stars
-      { '❤', '♥', '♡', '❦', '❧' }, -- Hearts
+      stars = { '★', '☆', '✧', '✦', '✶', '✷', '✸', '✹' },
+      runes = { '✠', '⛧', '𖤐', 'ᛟ', 'ᚨ', 'ᚱ', 'ᚷ', 'ᚠ', 'ᛉ', 'ᛊ', 'ᛏ', '☠', '☾', '♰', '✟', '☽', '⚚', '🜏' },
+      hearts = { '❤', '♥', '♡', '❦', '❧' },
     }
 
-    local function get_random_middle_icons()
-      local middle_space = math.floor(vim.fn.winwidth(0) / 7) -- Configurable width spacing
-      local icons = {}
-
-      for _ = 1, middle_space do
-        local chosen_set = icon_sets[math.random(#icon_sets)]
-        table.insert(icons, get_random_icon(chosen_set))
-      end
-
-      return table.concat(icons, " ")
+    local function get_random_icon(icons)
+      return icons[math.random(#icons)]
     end
+
+      -- Function to shuffle a table
+    local function shuffle_table(tbl)
+      local n = #tbl
+      while n > 1 do
+        local k = math.random(n)
+        tbl[n], tbl[k] = tbl[k], tbl[n]
+        n = n - 1
+      end
+    end
+
+    -- Create a list of icon sets to shuffle
+    local icon_sets_list = { icon_sets.stars, icon_sets.runes, icon_sets.hearts }
+
+    -- Shuffle the icon sets order
+    shuffle_table(icon_sets_list)
+
+    -- Function to reverse the table
+    local function reverse_table(tbl)
+      local reversed = {}
+      for i = #tbl, 1, -1 do
+        table.insert(reversed, tbl[i])
+      end
+      return reversed
+    end
+
+    -- Reverse the shuffled icon_sets_list
+    local reversed_icon_sets = reverse_table(icon_sets_list)
 
     -- configs
     local config = {
@@ -267,42 +258,39 @@ return {
     --   cond = conditions.hide_in_width,
     -- }
 
-    ins_left {
-      function() return get_random_star() end,
-      color = function()
-        return { fg = get_mode_color() }
-      end,
-    }
+    for set_name, icons in pairs(icon_sets_list) do
+      ins_left {
+        function() return get_random_icon(icons) end,
+        color = function()
+          return { fg = get_mode_color() }
+        end,
+      }
+    end
 
-    ins_left {
-      function() return get_random_rune() end,
-      color = function()
-        return { fg = get_mode_color() }
-      end,
-    }
-    
-    ins_left {
-      function() return get_random_heart() end,
-      color = function()
-        return { fg = get_mode_color() }
-      end,
-    }
-    -- this one makes nvim super slow
+    -- RIGHT
+    -- local function get_weather()
+    --   local job = require('plenary.job')
+    --   job:new({
+    --     command = 'curl',
+    --     args = { '-s', 'wttr.in/?format=%c+%t' },
+    --     on_exit = function(j, return_val)
+    --       if return_val == 0 then
+    --         local weather = table.concat(j:result(), ' ')
+    --         vim.schedule(function()
+    --           vim.b.weather = weather
+    --         end)
+    --       end
+    --     end,
+    --   }):start()
+    --   return vim.b.weather or 'N/A'
+    -- end
+    --
     -- ins_right {
-    --   function()
-    --     local handle = io.popen('curl -s "wttr.in/?format=%c+%t"')
-    --     if handle then
-    --       local result = handle:read('*a')
-    --       handle:close()
-    --       return result
-    --     end
-    --     return 'N/A'
-    --   end,
+    --   function() return get_weather() end,
     --   icon = '󰖐 ',
     --   color = { fg = colors.cyan, gui = 'bold' },
     -- }
 
-    -- RIGHT
     ins_right {
       function()
         local reg = vim.fn.reg_recording()
@@ -315,24 +303,14 @@ return {
       end,
     }
 
-    ins_right {
-      function() return get_random_heart() end,
-      color = function()
-        return { fg = get_mode_color() }
-      end,
-    }
-    ins_right {
-      function() return get_random_rune() end,
-      color = function()
-        return { fg = get_mode_color() }
-      end,
-    }
-    ins_right {
-      function() return get_random_star() end,
-      color = function()
-        return { fg = get_mode_color() }
-      end,
-    }
+    for _, icons in ipairs(reversed_icon_sets) do
+      ins_right {
+        function() return get_random_icon(icons) end,
+        color = function()
+          return { fg = get_mode_color() }
+        end,
+      }
+    end
 
     ins_right {
       function()
