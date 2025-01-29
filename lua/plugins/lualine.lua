@@ -234,16 +234,33 @@ return {
       end,
     }
 
+    --
     ins_left {
-      'diff',
-      symbols = { added = '󰯫 ', modified = '󰰏 ', removed = '󰰞 ' },
-      diff_color = {
-        added = { fg = colors.green },
-        modified = { fg = colors.orange },
-        removed = { fg = colors.red },
-      },
-      cond = conditions.hide_in_width,
+      function()
+        local git_status = vim.b.gitsigns_status_dict
+        if git_status then
+          return string.format(
+            '+%d ~%d -%d',
+            git_status.added or 0,
+            git_status.changed or 0,
+            git_status.removed or 0
+          )
+        end
+        return ''
+      end,
+      icon = '󰊢 ',
+      color = { fg = colors.yellow, gui = 'bold' },
     }
+    -- ins_left {
+    --   'diff',
+    --   symbols = { added = '󰯫 ', modified = '󰰏 ', removed = '󰰞 ' },
+    --   diff_color = {
+    --     added = { fg = colors.green },
+    --     modified = { fg = colors.orange },
+    --     removed = { fg = colors.red },
+    --   },
+    --   cond = conditions.hide_in_width,
+    -- }
 
     ins_left {
       function() return get_random_star() end,
@@ -278,22 +295,6 @@ return {
     --   color = function()
     --     return { fg = get_mode_color() }
     --   end,
-    -- }
-    -- ins_left {
-    --   function()
-    --     local git_status = vim.b.gitsigns_status_dict
-    --     if git_status then
-    --       return string.format(
-    --         '+%d ~%d -%d',
-    --         git_status.added or 0,
-    --         git_status.changed or 0,
-    --         git_status.removed or 0
-    --       )
-    --     end
-    --     return ''
-    --   end,
-    --   icon = '󰊢 ',
-    --   color = { fg = colors.yellow, gui = 'bold' },
     -- }
     -- ins_left {
     --   function() return get_random_corner() end,
