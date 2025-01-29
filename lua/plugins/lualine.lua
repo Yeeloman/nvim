@@ -75,7 +75,7 @@ return {
 
     -- Functions for random icons
     local function get_random_rune()
-      local runes = { 'ᛟ', 'ᚨ', 'ᚱ', 'ᚷ', 'ᚠ', 'ᛉ', 'ᛊ', 'ᛏ' }
+      local runes = { '✠', '⛧', '𖤐', 'ᛟ', 'ᚨ', 'ᚱ', 'ᚷ', 'ᚠ', 'ᛉ', 'ᛊ', 'ᛏ', '☠', '☾', '♰', '✟', '☽', '⚚', '🜏' }
       return runes[math.random(#runes)]
     end
 
@@ -94,13 +94,18 @@ return {
         return separators[math.random(#separators)]
       end
 
+    local function get_random_arcane_symbol()
+        local symbols = { }
+        return symbols[math.random(#symbols)]
+    end
+
 
     local function get_random_icon(icon_list)
       return icon_list[math.random(#icon_list)]
     end
 
     local icon_sets = {
-      { 'ᛟ', 'ᚨ', 'ᚱ', 'ᚷ', 'ᚠ', 'ᛉ', 'ᛊ', 'ᛏ' }, -- Runes
+  { '✠', '⛧', '𖤐', 'ᛟ', 'ᚨ', 'ᚱ', 'ᚷ', 'ᚠ', 'ᛉ', 'ᛊ', 'ᛏ', '☠', '☾', '♰', '✟', '☽', '⚚', '🜏' }, -- Runes
       { '★', '☆', '✧', '✦', '✶', '✷', '✸', '✹' }, -- Stars
       { '❤', '♥', '♡', '❦', '❧' }, -- Hearts
     }
@@ -282,27 +287,6 @@ return {
         return { fg = get_mode_color() }
       end,
     }
-    -- ins_left {
-    --   function() return get_random_middle_icons() end,
-    --   color = function()
-    --     return { fg = get_mode_color() }
-    --   end,
-    -- }
-    --
-    --
-    -- ins_left {
-    --   function() return get_random_rune() end,
-    --   color = function()
-    --     return { fg = get_mode_color() }
-    --   end,
-    -- }
-    -- ins_left {
-    --   function() return get_random_corner() end,
-    --   color = function()
-    --     return { fg = get_mode_color() }
-    --   end,
-    -- }
-    -- RIGHT
     -- this one makes nvim super slow
     -- ins_right {
     --   function()
@@ -317,6 +301,8 @@ return {
     --   icon = '󰖐 ',
     --   color = { fg = colors.cyan, gui = 'bold' },
     -- }
+
+    -- RIGHT
     ins_right {
       function()
         local reg = vim.fn.reg_recording()
