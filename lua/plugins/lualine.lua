@@ -4,26 +4,26 @@ return {
   config = function()
     -- theme colors
     local colors = {
-      bg       = '#1c1b1b', -- Dark gray-black for a gritty background
-      fg       = '#f2e7d5', -- Pale cream for text, resembling blood-stained pages
-      yellow   = '#e8b75f', -- Warm, golden yellow for energy and chaos
-      cyan     = '#6dc6cf', -- Cool cyan to balance against the bold tones
-      darkblue = '#2b3e50', -- Muted steel-blue for depth
-      green    = '#78c47b', -- Toxic green for a hint of menace
-      orange   = '#ff7733', -- Bright orange for chainsaw sparks and danger
-      violet   = '#8a4ba0', -- Dark violet for a surreal, haunting tone
-      magenta  = '#d360aa', -- Intense magenta for raw, visceral emotion
-      blue     = '#4f9cff', -- Electric blue for dynamic energy
-      red      = '#d32f2f', -- Deep, bloody red for brutality and action
+      bg       = '#1c1b1b',
+      fg       = '#f2e7d5',
+      yellow   = '#e8b75f',
+      cyan     = '#5ad1b3',
+      darkblue = '#2b3e50',
+      green    = '#5eff73',
+      orange   = '#ff7733',
+      violet   = '#7a3ba8',
+      magenta  = '#d360aa',
+      blue     = '#4f9cff',
+      red      = '#ff3344',
     }
 
     local function get_mode_color()
       local mode_color = {
-        n = colors.red,
-        i = colors.yellow,
-        v = colors.blue,
+        n = colors.darkblue,
+        i = colors.magenta,
+        v = colors.red,
         [''] = colors.blue,
-        V = colors.blue,
+        V = colors.red,
         c = colors.magenta,
         no = colors.red,
         s = colors.orange,
@@ -72,6 +72,50 @@ return {
         return gitdir and #gitdir > 0 and #gitdir < #filepath
       end,
     }
+
+    -- Functions for random icons
+    local function get_random_rune()
+      local runes = { 'ᛟ', 'ᚨ', 'ᚱ', 'ᚷ', 'ᚠ', 'ᛉ', 'ᛊ', 'ᛏ' }
+      return runes[math.random(#runes)]
+    end
+
+    local function get_random_star()
+        local stars = { '★', '☆', '✧', '✦', '✶', '✷', '✸', '✹' }
+        return stars[math.random(#stars)]
+      end
+
+    local function get_random_heart()
+        local hearts = { '❤', '♥', '♡', '❦', '❧' }
+        return hearts[math.random(#hearts)]
+      end
+
+      local function get_random_corner()
+        local separators = { '', '', '', '' }
+        return separators[math.random(#separators)]
+      end
+
+
+    local function get_random_icon(icon_list)
+      return icon_list[math.random(#icon_list)]
+    end
+
+    local icon_sets = {
+      { 'ᛟ', 'ᚨ', 'ᚱ', 'ᚷ', 'ᚠ', 'ᛉ', 'ᛊ', 'ᛏ' }, -- Runes
+      { '★', '☆', '✧', '✦', '✶', '✷', '✸', '✹' }, -- Stars
+      { '❤', '♥', '♡', '❦', '❧' }, -- Hearts
+    }
+
+    local function get_random_middle_icons()
+      local middle_space = math.floor(vim.fn.winwidth(0) / 7) -- Configurable width spacing
+      local icons = {}
+
+      for _ = 1, middle_space do
+        local chosen_set = icon_sets[math.random(#icon_sets)]
+        table.insert(icons, get_random_icon(chosen_set))
+      end
+
+      return table.concat(icons, " ")
+    end
 
     -- configs
     local config = {
@@ -142,13 +186,18 @@ return {
       }
     end
 
+
+    -- LEFT
     ins_left {
       function()
-        return '  '
+        local shiftwidth = vim.api.nvim_buf_get_option(0, 'shiftwidth')
+        local expandtab = vim.api.nvim_buf_get_option(0, 'expandtab')
+        return (expandtab and ' s:' or ' t:') .. shiftwidth .. " "
       end,
+      -- icon = '󰌒 ',
       color = function()
         local mode_color = get_mode_color()
-        return { bg = get_opposite_color(mode_color) }
+        return { fg = colors.bg, bg = get_opposite_color(mode_color), gui = 'bold' }
       end,
       padding = { left = 0 },
     }
@@ -176,40 +225,128 @@ return {
     ins_left(create_separator('left'))
 
     -- Mode indicator
+    ins_left {
+      function()
+        return '' -- 󱎶
+      end,
+      color = function()
+        return { fg = get_mode_color() }
+      end,
+    }
+
+    ins_left {
+      'diff',
+      symbols = { added = '󰯫 ', modified = '󰰏 ', removed = '󰰞 ' },
+      diff_color = {
+        added = { fg = colors.green },
+        modified = { fg = colors.orange },
+        removed = { fg = colors.red },
+      },
+      cond = conditions.hide_in_width,
+    }
+
+    ins_left {
+      function() return get_random_star() end,
+      color = function()
+        return { fg = get_mode_color() }
+      end,
+    }
+
+    ins_left {
+      function() return get_random_rune() end,
+      color = function()
+        return { fg = get_mode_color() }
+      end,
+    }
+    
+    ins_left {
+      function() return get_random_heart() end,
+      color = function()
+        return { fg = get_mode_color() }
+      end,
+    }
     -- ins_left {
-    --   function()
-    --     return '' -- 󱎶
-    --   end,
+    --   function() return get_random_middle_icons() end,
     --   color = function()
     --     return { fg = get_mode_color() }
     --   end,
-    --   padding = { left = 0 },
     -- }
-    -- ins_left(create_separator('right'))
+    --
+    --
+    -- ins_left {
+    --   function() return get_random_rune() end,
+    --   color = function()
+    --     return { fg = get_mode_color() }
+    --   end,
+    -- }
     -- ins_left {
     --   function()
-    --     return '                        '
+    --     local git_status = vim.b.gitsigns_status_dict
+    --     if git_status then
+    --       return string.format(
+    --         '+%d ~%d -%d',
+    --         git_status.added or 0,
+    --         git_status.changed or 0,
+    --         git_status.removed or 0
+    --       )
+    --     end
+    --     return ''
     --   end,
-    --   color = function()
-    --     local mode_color = get_mode_color()
-    --     return { bg = get_opposite_color(mode_color) }
-    --   end,
-    --   padding = { left = 0 },
+    --   icon = '󰊢 ',
+    --   color = { fg = colors.yellow, gui = 'bold' },
     -- }
-    -- ins_left(create_separator('left'))
-
-
+    -- ins_left {
+    --   function() return get_random_corner() end,
+    --   color = function()
+    --     return { fg = get_mode_color() }
+    --   end,
+    -- }
+    -- RIGHT
+    -- this one makes nvim super slow
+    -- ins_right {
+    --   function()
+    --     local handle = io.popen('curl -s "wttr.in/?format=%c+%t"')
+    --     if handle then
+    --       local result = handle:read('*a')
+    --       handle:close()
+    --       return result
+    --     end
+    --     return 'N/A'
+    --   end,
+    --   icon = '󰖐 ',
+    --   color = { fg = colors.cyan, gui = 'bold' },
+    -- }
     ins_right {
       function()
         local reg = vim.fn.reg_recording()
-        return reg ~= '' and 'Recording @' .. reg or ''
+        return reg ~= '' and '@' .. reg or ''
       end,
-      icon = '省',
+      icon = '󰻃',
       color = { fg = colors.red },
       cond = function()
         return vim.fn.reg_recording() ~= ''
       end,
     }
+
+    ins_right {
+      function() return get_random_heart() end,
+      color = function()
+        return { fg = get_mode_color() }
+      end,
+    }
+    ins_right {
+      function() return get_random_rune() end,
+      color = function()
+        return { fg = get_mode_color() }
+      end,
+    }
+    ins_right {
+      function() return get_random_star() end,
+      color = function()
+        return { fg = get_mode_color() }
+      end,
+    }
+
     ins_right {
       function()
         local msg = 'No Active Lsp'
@@ -230,6 +367,15 @@ return {
       color = { fg = '#e1a95f', gui = 'bold' },
     }
 
+    ins_right {
+      function()
+        return '' -- 󱎶
+      end,
+      color = function()
+        return { fg = get_mode_color() }
+      end,
+    }
+
     ins_right(create_separator('right'))
 
     ins_right(create_mode_based_component('location', nil, colors.bg))
@@ -238,7 +384,7 @@ return {
 
     ins_right {
       'branch',
-      icon = '', --a
+      icon = ' ', --a
       color = function()
         local mode_color = get_mode_color() -- Get the color for the current mode
         return {
@@ -246,16 +392,6 @@ return {
           gui = 'bold', -- Keep the text bold
         }
       end,
-    }
-    ins_right {
-      'diff',
-      symbols = { added = ' ', modified = '󰝤 ', removed = ' ' },
-      diff_color = {
-        added = { fg = colors.green },
-        modified = { fg = colors.orange },
-        removed = { fg = colors.red },
-      },
-      cond = conditions.hide_in_width,
     }
 
     ins_right(create_separator('right'))
