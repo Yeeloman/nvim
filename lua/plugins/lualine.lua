@@ -196,6 +196,7 @@ return {
         return { fg = colors.bg, bg = get_opposite_color(mode_color), gui = 'bold' }
       end,
       padding = { left = 0 },
+      cond = conditions.hide_in_width,
     }
     -- Left separator
     ins_left(create_separator('left'))
@@ -228,6 +229,7 @@ return {
       color = function()
         return { fg = get_mode_color() }
       end,
+      cond = conditions.hide_in_width,
     }
 
     --
@@ -246,6 +248,7 @@ return {
       end,
       icon = '󰊢 ',
       color = { fg = colors.yellow, gui = 'bold' },
+      cond = conditions.hide_in_width,
     }
     -- ins_left {
     --   'diff',
@@ -264,6 +267,7 @@ return {
         color = function()
           return { fg = get_mode_color() }
         end,
+        cond = conditions.hide_in_width,
       }
     end
 
@@ -309,6 +313,7 @@ return {
         color = function()
           return { fg = get_mode_color() }
         end,
+        cond = conditions.hide_in_width,
       }
     end
 
@@ -339,6 +344,7 @@ return {
       color = function()
         return { fg = get_mode_color() }
       end,
+      cond = conditions.hide_in_width,
     }
 
     ins_right(create_separator('right'))
