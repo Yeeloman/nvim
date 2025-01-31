@@ -171,6 +171,18 @@ return {
     end
 
     -- Helper function to create a separator component
+    local function create_separator_mode(side)
+      return {
+        function()
+          return side == 'left' and '' or ''
+        end,
+        color = function()
+          local mode_color = get_mode_color()
+          return { fg = mode_color }
+        end,
+        padding = { left = 0 },
+      }
+    end
     local function create_separator(side)
       return {
         function()
@@ -244,7 +256,7 @@ return {
         -- ['!'] = "SHELL",
         -- t = "TERMINAL",
       }
-      return mode_map[vim.fn.mode()] or "UNKNOWN"
+      return mode_map[vim.fn.mode()] or "[UNKNOWN]"
     end
 
     -- LEFT
@@ -257,22 +269,7 @@ return {
       padding = { left = 1, right = 1 },
     }
 
-    ins_left {
-      function()
-        local shiftwidth = vim.api.nvim_buf_get_option(0, 'shiftwidth')
-        local expandtab = vim.api.nvim_buf_get_option(0, 'expandtab')
-        return (expandtab and ' s:' or ' t:') .. shiftwidth .. " "
-      end,
-      -- icon = '󰌒 ',
-      color = function()
-        local mode_color = get_mode_color()
-        return { fg = colors.bg, bg = get_opposite_color(mode_color), gui = 'bold' }
-      end,
-      padding = { left = 0 },
-      cond = conditions.hide_in_width,
-    }
-    -- Left separator
-    ins_left(create_separator('left'))
+    ins_left(create_separator_mode('left'))
 
     ins_left {
       function()
