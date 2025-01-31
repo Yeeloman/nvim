@@ -23,23 +23,48 @@ return {
     local wal_colors = read_wal_colors()
 
     local colors = {
-        bg       = wal_colors[1] or '#1c1b1b', -- Fallback to dark background if not found
+        bg       = wal_colors[1] or '#1c1b1b', -- Fallback to dark background
         fg       = wal_colors[8] or '#f2e7d5', -- Fallback to light foreground
-        yellow   = wal_colors[3] or '#e8b75f',
-        cyan     = wal_colors[6] or '#00bcd4', -- Stronger cyan for contrast
-        darkblue = wal_colors[4] or '#2b3e50',
-        green    = wal_colors[2] or '#00e676', -- Stronger green for better distinction
-        orange   = wal_colors[5] or '#ff7733',
-        violet   = wal_colors[7] or '#7a3ba8',
-        magenta  = wal_colors[9] or '#d360aa',
-        blue     = wal_colors[12] or '#4f9cff',
-        red      = wal_colors[10] or '#ff3344',
+
+        -- Assign colors dynamically, ensuring contrast
+        yellow   = wal_colors[3]  or '#e8b75f', -- Light brown
+        cyan     = wal_colors[6]  or '#00bcd4', -- Light orange (fallback to stronger cyan)
+        darkblue = wal_colors[5]  or '#2b3e50', -- Light blue (fallback to dark blue)
+        green    = wal_colors[2]  or '#00e676', -- Dark brown (fallback to stronger green)
+        orange   = wal_colors[7]  or '#ff7733', -- Light peach (fallback to stronger orange)
+        violet   = wal_colors[9]  or '#7a3ba8', -- Dark gray (fallback to violet)
+        magenta  = wal_colors[13] or '#d360aa', -- Light blue (fallback to magenta)
+        blue     = wal_colors[12] or '#4f9cff', -- Gray (fallback to blue)
+        red      = wal_colors[10] or '#ff3344', -- Dark brown (fallback to red)
     }
+
+    -- Ensure contrast between background and foreground
+    if colors.bg == colors.fg then
+        colors.fg = '#f2e7d5' -- Fallback to a light foreground
+    end
+
+    -- Ensure contrast between background and other colors
+    local function ensure_contrast(color, default)
+        if color == colors.bg or color == colors.fg then
+            return default
+        end
+        return color
+    end
+
+    colors.yellow   = ensure_contrast(colors.yellow, '#e8b75f')
+    colors.cyan     = ensure_contrast(colors.cyan, '#00bcd4')
+    colors.darkblue = ensure_contrast(colors.darkblue, '#2b3e50')
+    colors.green    = ensure_contrast(colors.green, '#00e676')
+    colors.orange   = ensure_contrast(colors.orange, '#ff7733')
+    colors.violet   = ensure_contrast(colors.violet, '#7a3ba8')
+    colors.magenta  = ensure_contrast(colors.magenta, '#d360aa')
+    colors.blue     = ensure_contrast(colors.blue, '#4f9cff')
+    colors.red      = ensure_contrast(colors.red, '#ff3344')
 
     local function get_mode_color()
       local mode_color = {
         n = colors.darkblue,
-        i = colors.magenta,
+        i = colors.violet,
         v = colors.red,
         [''] = colors.blue,
         V = colors.red,
@@ -49,8 +74,8 @@ return {
         S = colors.orange,
         [''] = colors.orange,
         ic = colors.yellow,
-        R = colors.violet,
-        Rv = colors.violet,
+        R = colors.magenta,
+        Rv = colors.magenta,
         cv = colors.red,
         ce = colors.red,
         r = colors.cyan,
