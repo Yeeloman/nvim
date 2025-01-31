@@ -3,18 +3,37 @@ return {
   lazy = false,
   config = function()
     -- theme colors
+
+    local function read_wal_colors()
+      local colors = {}
+      local color_file = os.getenv("HOME") .. "/.cache/wal/colors"
+
+      -- Try to read from the colors file first
+      local file = io.open(color_file, "r")
+      if file then
+        for line in file:lines() do
+          table.insert(colors, line)
+        end
+        file:close()
+      end
+
+      return colors
+    end
+
+    local wal_colors = read_wal_colors()
+
     local colors = {
-      bg       = '#1c1b1b',
-      fg       = '#f2e7d5',
-      yellow   = '#e8b75f',
-      cyan     = '#5ad1b3',
-      darkblue = '#2b3e50',
-      green    = '#5eff73',
-      orange   = '#ff7733',
-      violet   = '#7a3ba8',
-      magenta  = '#d360aa',
-      blue     = '#4f9cff',
-      red      = '#ff3344',
+        bg       = wal_colors[1] or '#1c1b1b', -- Fallback to dark background if not found
+        fg       = wal_colors[8] or '#f2e7d5', -- Fallback to light foreground
+        yellow   = wal_colors[3] or '#e8b75f',
+        cyan     = wal_colors[6] or '#00bcd4', -- Stronger cyan for contrast
+        darkblue = wal_colors[4] or '#2b3e50',
+        green    = wal_colors[2] or '#00e676', -- Stronger green for better distinction
+        orange   = wal_colors[5] or '#ff7733',
+        violet   = wal_colors[7] or '#7a3ba8',
+        magenta  = wal_colors[9] or '#d360aa',
+        blue     = wal_colors[12] or '#4f9cff',
+        red      = wal_colors[10] or '#ff3344',
     }
 
     local function get_mode_color()
@@ -182,8 +201,62 @@ return {
       }
     end
 
+    -- Mode indicator function
+    local function mode()
+      local mode_map = {
+         n = 'N',         -- Normal Mode
+         i = 'I',         -- Insert Mode
+         v = 'V',         -- Visual Mode
+         [''] = 'V',    -- Visual Block Mode
+         V = 'V',         -- Visual Line Mode
+         c = 'C',         -- Command Mode
+         no = 'N',        -- Operator-pending Mode
+         s = 'S',         -- Select Mode
+         S = 'S',         -- Select Mode
+         ic = 'I',        -- Insert Mode (Completion)
+         R = 'R',         -- Replace Mode
+         Rv = 'R',        -- Virtual Replace Mode
+         cv = 'C',        -- Command Mode
+         ce = 'C',        -- Command Mode
+         r = 'R',         -- Hit-enter Mode
+         rm = 'M',        -- More Mode
+         ['r?'] = '?',     -- Prompt Mode
+         ['!'] = '!',     -- Shell Mode
+         t = 'T',         -- Terminal Mode
+        -- n = "NORMAL",
+        -- i = "INSERT",
+        -- v = "VISUAL",
+        -- [''] = "V-BLOCK",
+        -- V = "V-LINE",
+        -- c = "COMMAND",
+        -- no = "N-OPERATOR",
+        -- s = "SELECT",
+        -- S = "S-LINE",
+        -- [''] = "S-BLOCK",
+        -- ic = "INSERT COMPL",
+        -- R = "REPLACE",
+        -- Rv = "V-REPLACE",
+        -- cv = "COMMAND",
+        -- ce = "COMMAND",
+        -- r = "PROMPT",
+        -- rm = "MORE",
+        -- ['r?'] = "CONFIRM",
+        -- ['!'] = "SHELL",
+        -- t = "TERMINAL",
+      }
+      return mode_map[vim.fn.mode()] or "UNKNOWN"
+    end
 
     -- LEFT
+    ins_left {
+      mode,
+      color = function()
+        local mode_color = get_mode_color()
+        return { fg = colors.bg, bg = mode_color, gui = 'bold' }
+      end,
+      padding = { left = 1, right = 1 },
+    }
+
     ins_left {
       function()
         local shiftwidth = vim.api.nvim_buf_get_option(0, 'shiftwidth')
@@ -221,7 +294,6 @@ return {
 
     ins_left(create_separator('left'))
 
-    -- Mode indicator
     ins_left {
       function()
         return '' -- 󱎶
@@ -345,7 +417,7 @@ return {
         return msg
       end,
       icon = ' ',
-      color = { fg = '#e1a95f', gui = 'bold' },
+      color = { fg = colors.yellow, gui = 'bold' },
     }
 
     ins_right {
@@ -377,6 +449,7 @@ return {
     }
 
     ins_right(create_separator('right'))
+
     ins_right(create_mode_based_component('progress', nil, colors.bg))
 
     require('lualine').setup(config)
