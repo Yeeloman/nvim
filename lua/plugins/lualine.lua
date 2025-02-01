@@ -123,6 +123,31 @@ return {
       return opposite_colors[mode_color] or colors.fg -- Default to fg if no opposite is found
     end
 
+    local function get_animated_color(mode_color)
+      -- List of all available colors (assuming these are the colors you're working with)
+      local all_colors = {
+        colors.red, colors.blue, colors.green, colors.magenta,
+        colors.orange, colors.cyan, colors.violet, colors.yellow,
+        colors.darkblue
+      }
+
+      -- Remove the input color from the list to ensure the opposite is different
+      local possible_opposites = {}
+      for _, color in ipairs(all_colors) do
+        if color ~= mode_color then
+          table.insert(possible_opposites, color)
+        end
+      end
+
+      -- Randomly select an opposite color from the remaining options
+      if #possible_opposites > 0 then
+        local random_index = math.random(1, #possible_opposites)
+        return possible_opposites[random_index]
+      else
+        -- If no opposite is found (unlikely), return a default color
+        return colors.fg
+      end
+    end
 
     -- checks the conditions
     local conditions = {
@@ -145,6 +170,8 @@ return {
       stars = { '★', '☆', '✧', '✦', '✶', '✷', '✸', '✹' },
       runes = { '✠', '⛧', '𖤐', 'ᛟ', 'ᚨ', 'ᚱ', 'ᚷ', 'ᚠ', 'ᛉ', 'ᛊ', 'ᛏ', '☠', '☾', '♰', '✟', '☽', '⚚', '🜏' },
       hearts = { '❤', '♥', '♡', '❦', '❧' },
+      waves = { '≈', '∿', '≋', '≀', '⌀', '≣', '⌇' },
+      crosses = { '☨', '✟', '♰', '♱', '⛨', "", },
     }
 
     local function get_random_icon(icons)
@@ -162,7 +189,11 @@ return {
     end
 
     -- Create a list of icon sets to shuffle
-    local icon_sets_list = { icon_sets.stars, icon_sets.runes, icon_sets.hearts }
+    local icon_sets_list = {}
+
+    for _, icons in pairs(icon_sets) do
+      table.insert(icon_sets_list, icons)
+    end
 
     -- Shuffle the icon sets order
     shuffle_table(icon_sets_list)
@@ -218,26 +249,14 @@ return {
     end
 
     -- Helper function to create a separator component
-    local function create_separator_mode(side)
+    local function create_separator(side, use_mode_color)
       return {
         function()
           return side == 'left' and '' or ''
         end,
         color = function()
-          local mode_color = get_mode_color()
-          return { fg = mode_color }
-        end,
-        padding = { left = 0 },
-      }
-    end
-    local function create_separator(side)
-      return {
-        function()
-          return side == 'left' and '' or ''
-        end,
-        color = function()
-          local mode_color = get_mode_color()
-          return { fg = get_opposite_color(mode_color) }
+          local color = use_mode_color and get_mode_color() or get_opposite_color(get_mode_color())
+          return { fg = color }
         end,
         padding = { left = 0 },
       }
@@ -316,7 +335,7 @@ return {
       padding = { left = 1, right = 1 },
     }
 
-    ins_left(create_separator_mode('left'))
+    ins_left(create_separator('left', true))
 
     ins_left {
       function()
@@ -382,7 +401,7 @@ return {
       ins_left {
         function() return get_random_icon(icons) end,
         color = function()
-          return { fg = get_mode_color() }
+          return { fg = get_animated_color() }
         end,
         cond = conditions.hide_in_width,
       }
@@ -417,28 +436,29 @@ return {
     --   color = { fg = colors.cyan, gui = 'bold' },
     -- }
     --
-    ins_right {
-      'selectioncount',
-      color = { fg = colors.green, gui = 'bold' },
-    }
 
     ins_right {
       function()
         local reg = vim.fn.reg_recording()
-        return reg ~= '' and '@' .. reg or ''
+        return reg ~= '' and '[' .. reg ..']' or ''
       end,
-      icon = '󰻃',
-      color = { fg = colors.red },
+      color = { fg = '#ff3344', gui = "bold"},
       cond = function()
         return vim.fn.reg_recording() ~= ''
       end,
     }
 
+    ins_right {
+      'selectioncount',
+      color = { fg = colors.green, gui = 'bold' },
+    }
+
+
     for _, icons in ipairs(reversed_icon_sets) do
       ins_right {
         function() return get_random_icon(icons) end,
         color = function()
-          return { fg = get_mode_color() }
+          return { fg = get_animated_color() }
         end,
         cond = conditions.hide_in_width,
       }
@@ -485,7 +505,7 @@ return {
       icon = ' ', --a
       fmt = function(branch)
         if branch == '' or branch == nil then
-          return ' No Repo' -- Change this to any icon or text you prefer
+          return 'No Repo' -- Change this to any icon or text you prefer
         end
         return branch
       end,

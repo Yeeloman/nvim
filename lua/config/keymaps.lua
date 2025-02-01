@@ -7,7 +7,7 @@ local keymap = vim.keymap
 local opts = {}
 local silent_opts = { noremap = true, silent = true }
 
-
+vim.api.nvim_set_keymap('n', '<Esc>', ':nohlsearch<CR><Esc>', { noremap = true, silent = true })
 
 -- Disable the spacebar key's default behavior in Normal and Visual modes
 keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
