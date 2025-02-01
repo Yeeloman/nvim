@@ -3,6 +3,19 @@ return {
   lazy = false,
   config = function()
     -- theme colors
+    local default_colors = {
+      bg       = '#16181b', -- Dark background
+      fg       = '#c5c4c4', -- Light foreground for contrast
+      yellow   = '#e8b75f', -- Vibrant yellow
+      cyan     = '#00bcd4', -- Soft cyan
+      darkblue = '#2b3e50', -- Deep blue
+      green    = '#00e676', -- Bright green
+      orange   = '#ff7733', -- Warm orange
+      violet   = '#7a3ba8', -- Strong violet
+      magenta  = '#d360aa', -- Deep magenta
+      blue     = '#4f9cff', -- Light-medium blue
+      red      = '#ff3344', -- Strong red
+    }
 
     local function read_wal_colors()
       local colors = {}
@@ -23,42 +36,50 @@ return {
     local wal_colors = read_wal_colors()
 
     local colors = {
-        bg       = wal_colors[1] or '#16181b', -- Dark background
-        fg       = wal_colors[8] or '#c5c4c4', -- Light foreground for contrast
+      bg       = wal_colors[1] or default_colors.bg, -- Dark background
+      fg       = wal_colors[8] or default_colors.fg, -- Light foreground for contrast
 
-        -- Assigning colors while ensuring contrast and avoiding duplications
-        yellow   = wal_colors[3]  or '#cb1b1d', -- Stronger, vibrant color
-        cyan     = wal_colors[6]  or '#7793c4', -- Softer cyan tone
-        darkblue = wal_colors[2]  or '#2c3e7b', -- Strong deep blue
-        green    = wal_colors[4]  or '#7b7830', -- Muted green/yellow mix for balance
-        orange   = wal_colors[7]  or '#cbc98a', -- Softer orange tone
-        violet   = wal_colors[5]  or '#704880', -- Strong violet/purple tone
-        magenta  = wal_colors[10] or '#801216', -- Deep magenta/red mix
-        blue     = wal_colors[12] or '#466d84', -- Light-medium blue for balance
-        red      = wal_colors[9]  or '#cb1b1d', -- Strong red
+      -- Assigning colors while ensuring contrast and avoiding duplications
+      yellow   = wal_colors[3] or default_colors.yellow,   -- Stronger, vibrant color
+      cyan     = wal_colors[6] or default_colors.cyan,     -- Softer cyan tone
+      darkblue = wal_colors[2] or default_colors.darkblue, -- Strong deep blue
+      green    = wal_colors[4] or default_colors.green,    -- Muted green/yellow mix for balance
+      orange   = wal_colors[7] or default_colors.orange,   -- Softer orange tone
+      violet   = wal_colors[5] or default_colors.violet,   -- Strong violet/purple tone
+      magenta  = wal_colors[10] or default_colors.magenta, -- Deep magenta/red mix
+      blue     = wal_colors[12] or default_colors.blue,    -- Light-medium blue for balance
+      red      = wal_colors[9] or default_colors.red,      -- Strong red
     }
-    -- Ensure contrast between background and foreground
-    if colors.bg == colors.fg then
-        colors.fg = '#f2e7d5' -- Fallback to a light foreground
+
+    local function luminance(color)
+      local r, g, b = color:match("#(%x%x)(%x%x)(%x%x)")
+      r, g, b = tonumber(r, 16) / 255, tonumber(g, 16) / 255, tonumber(b, 16) / 255
+      return 0.2126 * r + 0.7152 * g + 0.0722 * b
     end
 
-    -- Ensure contrast between background and other colors
+    local function adjust_color(color, factor)
+      local r, g, b = color:match("#(%x%x)(%x%x)(%x%x)")
+      r, g, b = tonumber(r, 16), tonumber(g, 16), tonumber(b, 16)
+
+      -- Increase brightness if too dark, decrease if too bright
+      r = math.min(math.max(r * factor, 0), 255)
+      g = math.min(math.max(g * factor, 0), 255)
+      b = math.min(math.max(b * factor, 0), 255)
+
+      return string.format("#%02x%02x%02x", r, g, b)
+    end
+
     local function ensure_contrast(color, default)
-        if color == colors.bg or color == colors.fg then
-            return default
-        end
-        return color
+      local contrast = luminance(color) - luminance(colors.bg)
+      if contrast < 0.3 then          -- Use a better contrast ratio
+        return adjust_color(color, 1) -- Adjust brightness
+      end
+      return color
     end
 
-    colors.yellow   = ensure_contrast(colors.yellow, '#e8b75f')
-    colors.cyan     = ensure_contrast(colors.cyan, '#00bcd4')
-    colors.darkblue = ensure_contrast(colors.darkblue, '#2b3e50')
-    colors.green    = ensure_contrast(colors.green, '#00e676')
-    colors.orange   = ensure_contrast(colors.orange, '#ff7733')
-    colors.violet   = ensure_contrast(colors.violet, '#7a3ba8')
-    colors.magenta  = ensure_contrast(colors.magenta, '#d360aa')
-    colors.blue     = ensure_contrast(colors.blue, '#4f9cff')
-    colors.red      = ensure_contrast(colors.red, '#ff3344')
+    for key, default_color in pairs(default_colors) do
+      colors[key] = ensure_contrast(colors[key], default_color)
+    end
 
     local function get_mode_color()
       local mode_color = {
@@ -130,7 +151,7 @@ return {
       return icons[math.random(#icons)]
     end
 
-      -- Function to shuffle a table
+    -- Function to shuffle a table
     local function shuffle_table(tbl)
       local n = #tbl
       while n > 1 do
@@ -161,10 +182,10 @@ return {
     -- configs
     local config = {
       options = {
-        component_separators = '', -- No separators between components
-        section_separators = '',   -- No separators between sections
+        component_separators = '',                               -- No separators between components
+        section_separators = '',                                 -- No separators between sections
         theme = {
-          normal = { c = { fg = colors.fg, bg = colors.bg } }, -- Active statusline colors
+          normal = { c = { fg = colors.fg, bg = colors.bg } },   -- Active statusline colors
           inactive = { c = { fg = colors.bg, bg = colors.fg } }, -- Inactive statusline colors
         },
       },
@@ -242,25 +263,25 @@ return {
     -- Mode indicator function
     local function mode()
       local mode_map = {
-         n = 'N',         -- Normal Mode
-         i = 'I',         -- Insert Mode
-         v = 'V',         -- Visual Mode
-         [''] = 'V',    -- Visual Block Mode
-         V = 'V',         -- Visual Line Mode
-         c = 'C',         -- Command Mode
-         no = 'N',        -- Operator-pending Mode
-         s = 'S',         -- Select Mode
-         S = 'S',         -- Select Mode
-         ic = 'I',        -- Insert Mode (Completion)
-         R = 'R',         -- Replace Mode
-         Rv = 'R',        -- Virtual Replace Mode
-         cv = 'C',        -- Command Mode
-         ce = 'C',        -- Command Mode
-         r = 'R',         -- Hit-enter Mode
-         rm = 'M',        -- More Mode
-         ['r?'] = '?',     -- Prompt Mode
-         ['!'] = '!',     -- Shell Mode
-         t = 'T',         -- Terminal Mode
+        n = 'N',      -- Normal Mode
+        i = 'I',      -- Insert Mode
+        v = 'V',      -- Visual Mode
+        [''] = 'V',  -- Visual Block Mode
+        V = 'V',      -- Visual Line Mode
+        c = 'C',      -- Command Mode
+        no = 'N',     -- Operator-pending Mode
+        s = 'S',      -- Select Mode
+        S = 'S',      -- Select Mode
+        ic = 'I',     -- Insert Mode (Completion)
+        R = 'R',      -- Replace Mode
+        Rv = 'R',     -- Virtual Replace Mode
+        cv = 'C',     -- Command Mode
+        ce = 'C',     -- Command Mode
+        r = 'R',      -- Hit-enter Mode
+        rm = 'M',     -- More Mode
+        ['r?'] = '?', -- Prompt Mode
+        ['!'] = '!',  -- Shell Mode
+        t = 'T',      -- Terminal Mode
         -- n = "NORMAL",
         -- i = "INSERT",
         -- v = "VISUAL",
@@ -462,11 +483,17 @@ return {
     ins_right {
       'branch',
       icon = ' ', --a
+      fmt = function(branch)
+        if branch == '' or branch == nil then
+          return ' No Repo' -- Change this to any icon or text you prefer
+        end
+        return branch
+      end,
       color = function()
         local mode_color = get_mode_color() -- Get the color for the current mode
         return {
-          fg = mode_color, -- Set background to the opposite color
-          gui = 'bold', -- Keep the text bold
+          fg = mode_color,                  -- Set background to the opposite color
+          gui = 'bold',                     -- Keep the text bold
         }
       end,
     }
