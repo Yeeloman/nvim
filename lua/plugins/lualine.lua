@@ -23,21 +23,20 @@ return {
     local wal_colors = read_wal_colors()
 
     local colors = {
-        bg       = wal_colors[1] or '#1c1b1b', -- Fallback to dark background
-        fg       = wal_colors[8] or '#f2e7d5', -- Fallback to light foreground
+        bg       = wal_colors[1] or '#16181b', -- Dark background
+        fg       = wal_colors[8] or '#c5c4c4', -- Light foreground for contrast
 
-        -- Assign colors dynamically, ensuring contrast
-        yellow   = wal_colors[3]  or '#e8b75f', -- Light brown
-        cyan     = wal_colors[6]  or '#00bcd4', -- Light orange (fallback to stronger cyan)
-        darkblue = wal_colors[5]  or '#2b3e50', -- Light blue (fallback to dark blue)
-        green    = wal_colors[2]  or '#00e676', -- Dark brown (fallback to stronger green)
-        orange   = wal_colors[7]  or '#ff7733', -- Light peach (fallback to stronger orange)
-        violet   = wal_colors[9]  or '#7a3ba8', -- Dark gray (fallback to violet)
-        magenta  = wal_colors[13] or '#d360aa', -- Light blue (fallback to magenta)
-        blue     = wal_colors[12] or '#4f9cff', -- Gray (fallback to blue)
-        red      = wal_colors[10] or '#ff3344', -- Dark brown (fallback to red)
+        -- Assigning colors while ensuring contrast and avoiding duplications
+        yellow   = wal_colors[3]  or '#cb1b1d', -- Stronger, vibrant color
+        cyan     = wal_colors[6]  or '#7793c4', -- Softer cyan tone
+        darkblue = wal_colors[2]  or '#2c3e7b', -- Strong deep blue
+        green    = wal_colors[4]  or '#7b7830', -- Muted green/yellow mix for balance
+        orange   = wal_colors[7]  or '#cbc98a', -- Softer orange tone
+        violet   = wal_colors[5]  or '#704880', -- Strong violet/purple tone
+        magenta  = wal_colors[10] or '#801216', -- Deep magenta/red mix
+        blue     = wal_colors[12] or '#466d84', -- Light-medium blue for balance
+        red      = wal_colors[9]  or '#cb1b1d', -- Strong red
     }
-
     -- Ensure contrast between background and foreground
     if colors.bg == colors.fg then
         colors.fg = '#f2e7d5' -- Fallback to a light foreground
@@ -74,8 +73,8 @@ return {
         S = colors.orange,
         [''] = colors.orange,
         ic = colors.yellow,
-        R = colors.magenta,
-        Rv = colors.magenta,
+        R = colors.orange,
+        Rv = colors.orange,
         cv = colors.red,
         ce = colors.red,
         r = colors.cyan,
@@ -88,19 +87,21 @@ return {
     end
 
     local function get_opposite_color(mode_color)
-      -- Define a mapping of mode colors to their opposites
+      -- Define a mapping of mode colors to their opposites (randomized)
       local opposite_colors = {
-        [colors.red] = colors.blue,
-        [colors.blue] = colors.red,
+        [colors.red] = colors.cyan,
+        [colors.blue] = colors.orange,
         [colors.green] = colors.magenta,
-        [colors.magenta] = colors.green,
-        [colors.orange] = colors.cyan,
-        [colors.cyan] = colors.orange,
-        [colors.violet] = colors.yellow,
-        [colors.yellow] = colors.violet,
+        [colors.magenta] = colors.darkblue,
+        [colors.orange] = colors.blue,
+        [colors.cyan] = colors.yellow,
+        [colors.violet] = colors.green,
+        [colors.yellow] = colors.red,
+        [colors.darkblue] = colors.violet,
       }
       return opposite_colors[mode_color] or colors.fg -- Default to fg if no opposite is found
     end
+
 
     -- checks the conditions
     local conditions = {
