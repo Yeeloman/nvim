@@ -120,12 +120,6 @@ return {
             }
           }
         },
-        ["django-template-lsp"] = {
-          filetypes = { "html", "htmldjango" }, -- Specify the file types for Django templates
-          root_dir = function(fname)
-            return lspconfig.util.root_pattern("manage.py", "pyproject.toml", "setup.py")(fname)
-          end,
-        },
       }
 
       -- Register special servers with specific settings
