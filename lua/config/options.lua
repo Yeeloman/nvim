@@ -62,3 +62,6 @@ opt.inccommand = "split"
 
 vim.o.undofile = true -- Save undo history (default: false)
 
+-- make the bg transparent
+vim.api.nvim_set_hl(0, "Normal", { bg="none" })
+vim.api.nvim_set_hl(0, "NormalFoalt", { bg="none" })

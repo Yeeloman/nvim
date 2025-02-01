@@ -66,6 +66,8 @@ keymap.set("v", ">", ">gv")
 keymap.set("v", "<S-k>", ":m '<-2<CR>gv=gv")
 keymap.set("v", "<S-j>", ":m '>+1<CR>gv=gv")
 
+keymap.set('n', "J", "mzJ`z")
+
 -- Keep last yanked when pasting
 keymap.set('v', 'p', '"_dP', opts)
 

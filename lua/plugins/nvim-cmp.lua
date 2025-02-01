@@ -1,6 +1,6 @@
-if true then return {} end
 return {
   "hrsh7th/nvim-cmp",
+  event = "InsertEnter",
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",   -- LSP source for nvim-cmp
     "hrsh7th/cmp-buffer",     -- Buffer completions
@@ -23,8 +23,8 @@ return {
         end,
       },
       window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
+        completion = cmp.config.window.bordered({ border = "rounded" }),
+        documentation = cmp.config.window.bordered({ border = "rounded" }),
       },
       mapping = {
         -- Scroll through the suggestion popup menu
@@ -38,12 +38,12 @@ return {
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
       },
       sources = cmp.config.sources({
-        { name = "nvim_lsp" },
         { name = "luasnip" },
-      }, {
-          { name = "buffer" },
-          { name = "path" },
-        }),
+        { name = "nvim_lsp" },
+        { name = "buffer" },
+        { name = "path" },
+        { name = "nvim_lua" },
+      }),
     })
 
     -- Set up `/` and `:` command-line completions
@@ -56,8 +56,7 @@ return {
     cmp.setup.cmdline(":", {
       sources = cmp.config.sources({
         { name = "path" },
-      }, {
-          { name = "cmdline" },
+        { name = "cmdline" },
         }),
     })
   end,

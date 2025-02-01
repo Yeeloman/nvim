@@ -343,10 +343,13 @@ return {
       end,
       icon = ' ',
       color = function()
-        return {
-          fg = get_mode_color(),
-          gui = "bold",
-        }
+        -- Check if a virtual environment is active by looking for the VIRTUAL_ENV environment variable
+        local virtual_env = vim.env.VIRTUAL_ENV
+        if virtual_env then
+          return { fg = get_animated_color(), gui = 'bold' }
+        else
+          return { fg = get_mode_color(), gui = 'bold' }
+        end
       end,
     }
 
@@ -440,9 +443,9 @@ return {
     ins_right {
       function()
         local reg = vim.fn.reg_recording()
-        return reg ~= '' and '[' .. reg ..']' or ''
+        return reg ~= '' and '[' .. reg .. ']' or ''
       end,
-      color = { fg = '#ff3344', gui = "bold"},
+      color = { fg = '#ff3344', gui = "bold" },
       cond = function()
         return vim.fn.reg_recording() ~= ''
       end,
@@ -472,10 +475,30 @@ return {
         if next(clients) == nil then
           return msg
         end
+
+        -- Map LSP names to their shortened versions
+        local lsp_short_names = {
+          pyright = "py",
+          tsserver = "ts",
+          rust_analyzer = "rs",
+          lua_ls = "lua",
+          clangd = "c++",
+          bashls = "sh",
+          jsonls = "json",
+          html = "html",
+          cssls = "css",
+          tailwindcss = "tw",
+          dockerls = "docker",
+          sqlls = "sql",
+          yamlls = "yaml",
+          -- Add more mappings as needed
+        }
+
         for _, client in ipairs(clients) do
           local filetypes = client.config.filetypes
           if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-            return client.name
+            -- Return the shortened name if available, otherwise return the first two letters of the LSP name
+            return lsp_short_names[client.name] or client.name:sub(1, 2)
           end
         end
         return msg

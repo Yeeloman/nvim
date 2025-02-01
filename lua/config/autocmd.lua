@@ -17,7 +17,6 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   end,
 })
 
-
 -- Auto indent
 -- vim.api.nvim_create_autocmd("BufWritePre", {
 --   pattern = "*",
@@ -27,4 +26,3 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 --     vim.fn.setpos(".", pos)
 --   end,
 -- })
---

@@ -13,7 +13,7 @@ return {
     local snipe = require("snipe")
     snipe.setup({
       ui = {
-        position = "bottomleft", -- "topleft", "bottomleft", "topright", "bottomright", "center", "cursor"
+        position = "center", -- "topleft", "bottomleft", "topright", "bottomright", "center", "cursor"
         preselect_current = true,
         text_align = "file-first",
       },
