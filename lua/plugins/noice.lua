@@ -13,9 +13,9 @@ return -- lazy.nvim
       view = "cmdline", -- Use a popup style cmdline_popup
       format = {
         -- Default command-line icon
-        cmdline = { icon = "   ", highlight = "NoiceCmdlineIcon" },
+        cmdline = { icon = "   ", highlight = "NoiceCmdlineIcon" },
         -- Lua command icon
-        lua = { icon = "  ", highlight = "NoiceCmdlineLua" },
+        lua = { icon = "   ", highlight = "NoiceCmdlineLua" },
         -- Shell command icon
         shell = { icon = "  ", highlight = "NoiceCmdlineShell" },
         -- Search command icon

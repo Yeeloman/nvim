@@ -17,7 +17,7 @@ return {
         preselect_current = true,
         text_align = "file-first", -- right, left, file-first
         open_win_override = {
-          -- title = "",
+          title = "Switch",
           border = "double", -- use "rounded" for rounded border
         },
       },
@@ -38,5 +38,11 @@ return {
       },
       sort = "default",
     })
+
+    -- Customize highlight groups for Snipe
+    vim.api.nvim_set_hl(0, "SnipeNormal", { bg = "#1e1e2e", fg = "#cdd6f4" })     -- Background and text color
+    vim.api.nvim_set_hl(0, "SnipeBorder", { bg = "#1e1e2e", fg = "#89b4fa" })     -- Border color
+    vim.api.nvim_set_hl(0, "SnipeCursorLine", { bg = "#313244", fg = "#cdd6f4" }) -- Highlight for selected item
+    vim.api.nvim_set_hl(0, "SnipeHint", { bg = "#1e1e2e", fg = "#f38ba8" })       -- Hint text color
   end,
 }
