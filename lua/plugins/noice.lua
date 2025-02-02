@@ -75,7 +75,8 @@ return -- lazy.nvim
         },
         win_options = {
           winblend = 10,
-          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+          -- winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+          winhighlight = "Normal:PopupNormal,FloatBorder:MyPopupBorder", -- Custom highlights
         },
       },
       cmdline_popup = {
@@ -128,5 +129,11 @@ return -- lazy.nvim
     local shared_colors = require("shared.colors")
     local wal_colors = shared_colors.read_wal_colors()
     vim.api.nvim_set_hl(0, "NoiceCmdlineIcon", { fg = wal_colors[3] or "#d360aa", bold = true }) -- Default command-line icon
+
+    -- Popup Menu Background Color
+    -- vim.api.nvim_set_hl(0, "MyPopupNormal", { bg = wal_colors[1] or "#1e1e2e", fg = "#cdd6f4" })
+
+    -- Popup Menu Border Color
+    vim.api.nvim_set_hl(0, "MyPopupBorder", { fg = wal_colors[3] or "#f5e0dc", bold = true })
   end,
 }
