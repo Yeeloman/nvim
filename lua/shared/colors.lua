@@ -51,7 +51,6 @@ function M.generate_variants(colors, total_colors)
     return { table.unpack(colors, 1, total_colors) }
   end
 
-  local step = total_colors / num_existing
   local index = 1
   while #new_colors < total_colors do
     local factor = 0.9 + ((#new_colors % num_existing) * 0.2 / num_existing)

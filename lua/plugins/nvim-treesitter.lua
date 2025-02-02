@@ -4,6 +4,7 @@ return {
     {
       "nvim-treesitter/nvim-treesitter-textobjects",
       event = "VeryLazy",
+      -- lazy = false,
       enabled = true,
     },
   },
@@ -61,7 +62,7 @@ return {
           },
           selection_modes = {
             ['@parameter.outer'] = 'v', -- charwise
-            ['@function.outer'] = 'v', -- linewise
+            ['@function.outer'] = 'v',  -- linewise
             ['@class.outer'] = '<c-v>', -- blockwise
           },
           include_surrounding_whitespace = true,
@@ -87,5 +88,14 @@ return {
         },
       },
     })
+    -- Safely require and configure repeatable_move
+    local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+    local keymap = vim.keymap.set
+    keymap({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
+    keymap({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
+    keymap({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f_expr, { expr = true })
+    keymap({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true })
+    keymap({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
+    keymap({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
   end,
 }

@@ -44,10 +44,10 @@ keymap.set('n', 'j', 'j', silent_opts)
 keymap.set('n', 'k', 'gk', silent_opts)
 
 -- Window management
-keymap.set('n', '<leader>v', '<C-w>v', { noremap = true, silent = true, desc ="Split window vertically" }) -- split window vertically
+keymap.set('n', '<leader>v', '<C-w>v', { noremap = true, silent = true, desc = "Split window vertically" })   -- split window vertically
 keymap.set('n', '<leader>h', '<C-w>s', { noremap = true, silent = true, desc = "Split window horizontally" }) -- split window horizontally
-keymap.set('n', '<leader>sr', '<C-w>=', { noremap = true, silent = true, desc = "Reset window size" }) -- make split windows equal width & height
-keymap.set('n', '<leader>xs', ':close<CR>', { noremap = true, silent = true, desc = "Close current split" }) -- close current split window
+keymap.set('n', '<leader>sr', '<C-w>=', { noremap = true, silent = true, desc = "Reset window size" })        -- make split windows equal width & height
+keymap.set('n', '<leader>xs', ':close<CR>', { noremap = true, silent = true, desc = "Close current split" })  -- close current split window
 
 -- pane nav
 keymap.set("n", "<C-h>", "<C-w>h", opts)
@@ -56,7 +56,7 @@ keymap.set("n", "<C-j>", "<C-w>j", opts)
 keymap.set("n", "<C-k>", "<C-w>k", opts)
 
 -- Tabs
-keymap.set('n', '<leader>to', ':tabnew<CR>', opts) -- open new tab
+keymap.set('n', '<leader>to', ':tabnew<CR>', opts)   -- open new tab
 keymap.set('n', '<leader>tx', ':tabclose<CR>', opts) -- close current tab
 
 keymap.set("v", "<", "<gv")
@@ -73,19 +73,3 @@ keymap.set('v', 'p', '"_dP', opts)
 
 -- key map for lazy
 keymap.set('n', '<leader>l', "<cmd>Lazy<CR>", { desc = "Open lazy", noremap = true, silent = true })
-
--- Safely require the repeatable_move module
-local ok, ts_repeat_move = pcall(require, "nvim-treesitter.textobjects.repeatable_move")
-if ok then
-  -- Repeat movement with ; and ,
-  keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
-  keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
-
-  -- Make builtin f, F, t, T also repeatable with ; and ,
-  keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f_expr, { expr = true })
-  keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true })
-  keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
-  keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
-else
-  vim.notify("nvim-treesitter-textobjects not loaded!", vim.log.levels.WARN)
-end

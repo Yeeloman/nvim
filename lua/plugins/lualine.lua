@@ -2,7 +2,7 @@ return {
   "nvim-lualine/lualine.nvim",
   lazy = false,
   config = function()
-    -- theme colors
+    -- Theme colors
     local default_colors = {
       bg       = '#16181b', -- Dark background
       fg       = '#c5c4c4', -- Light foreground for contrast
@@ -23,19 +23,16 @@ return {
     local colors = {
       bg       = wal_colors[1] or default_colors.bg, -- Dark background
       fg       = wal_colors[8] or default_colors.fg, -- Light foreground for contrast
-
-      -- Assigning colors while ensuring contrast and avoiding duplications
-      yellow   = wal_colors[3] or default_colors.yellow,   -- Stronger, vibrant color
-      cyan     = wal_colors[6] or default_colors.cyan,     -- Softer cyan tone
-      darkblue = wal_colors[2] or default_colors.darkblue, -- Strong deep blue
-      green    = wal_colors[4] or default_colors.green,    -- Muted green/yellow mix for balance
-      orange   = wal_colors[7] or default_colors.orange,   -- Softer orange tone
-      violet   = wal_colors[5] or default_colors.violet,   -- Strong violet/purple tone
-      magenta  = wal_colors[3] or default_colors.magenta,  -- Deep magenta/red mix
-      blue     = wal_colors[4] or default_colors.blue,     -- Light-medium blue for balance
-      red      = wal_colors[9] or default_colors.red,      -- Strong red
+      yellow   = wal_colors[3] or default_colors.yellow,
+      cyan     = wal_colors[6] or default_colors.cyan,
+      darkblue = wal_colors[2] or default_colors.darkblue,
+      green    = wal_colors[4] or default_colors.green,
+      orange   = wal_colors[7] or default_colors.orange,
+      violet   = wal_colors[5] or default_colors.violet,
+      magenta  = wal_colors[3] or default_colors.magenta,
+      blue     = wal_colors[4] or default_colors.blue,
+      red      = wal_colors[9] or default_colors.red,
     }
-
 
     for key, default_color in pairs(default_colors) do
       colors[key] = shared_colors.ensure_contrast(colors[key], default_color)
@@ -68,7 +65,6 @@ return {
     end
 
     local function get_opposite_color(mode_color)
-      -- Define a mapping of mode colors to their opposites (randomized)
       local opposite_colors = {
         [colors.red] = colors.cyan,
         [colors.blue] = colors.orange,
@@ -80,36 +76,30 @@ return {
         [colors.yellow] = colors.red,
         [colors.darkblue] = colors.violet,
       }
-      return opposite_colors[mode_color] or colors.fg -- Default to fg if no opposite is found
+      return opposite_colors[mode_color] or colors.fg
     end
 
     local function get_animated_color(mode_color)
-      -- List of all available colors (assuming these are the colors you're working with)
       local all_colors = {
         colors.red, colors.blue, colors.green, colors.magenta,
         colors.orange, colors.cyan, colors.violet, colors.yellow,
         colors.darkblue
       }
-
-      -- Remove the input color from the list to ensure the opposite is different
       local possible_opposites = {}
       for _, color in ipairs(all_colors) do
         if color ~= mode_color then
           table.insert(possible_opposites, color)
         end
       end
-
-      -- Randomly select an opposite color from the remaining options
       if #possible_opposites > 0 then
         local random_index = math.random(1, #possible_opposites)
         return possible_opposites[random_index]
       else
-        -- If no opposite is found (unlikely), return a default color
         return colors.fg
       end
     end
 
-    -- checks the conditions
+    -- Conditions
     local conditions = {
       buffer_not_empty = function()
         return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
@@ -124,21 +114,21 @@ return {
       end,
     }
 
-    -- Logic for random icons
+    -- Random icons
     math.randomseed(12345)
     local icon_sets = {
       stars = { '★', '☆', '✧', '✦', '✶', '✷', '✸', '✹' },
       runes = { '✠', '⛧', '𖤐', 'ᛟ', 'ᚨ', 'ᚱ', 'ᚷ', 'ᚠ', 'ᛉ', 'ᛊ', 'ᛏ', '☠', '☾', '♰', '✟', '☽', '⚚', '🜏' },
       hearts = { '❤', '♥', '♡', '❦', '❧' },
       waves = { '≈', '∿', '≋', '≀', '⌀', '≣', '⌇' },
-      crosses = { '☨', '✟', '♰', '♱', '⛨', "", },
+      crosses = { '☨', '✟', '♰', '♱', '⛨', "" },
     }
 
     local function get_random_icon(icons)
       return icons[math.random(#icons)]
     end
 
-    -- Function to shuffle a table
+    -- Shuffle table
     local function shuffle_table(tbl)
       local n = #tbl
       while n > 1 do
@@ -148,17 +138,13 @@ return {
       end
     end
 
-    -- Create a list of icon sets to shuffle
     local icon_sets_list = {}
-
     for _, icons in pairs(icon_sets) do
       table.insert(icon_sets_list, icons)
     end
-
-    -- Shuffle the icon sets order
     shuffle_table(icon_sets_list)
 
-    -- Function to reverse the table
+    -- Reverse table
     local function reverse_table(tbl)
       local reversed = {}
       for i = #tbl, 1, -1 do
@@ -166,49 +152,64 @@ return {
       end
       return reversed
     end
-
-    -- Reverse the shuffled icon_sets_list
     local reversed_icon_sets = reverse_table(icon_sets_list)
 
-    -- configs
+    -- Config
     local config = {
       options = {
-        component_separators = '',                               -- No separators between components
-        section_separators = '',                                 -- No separators between sections
+        component_separators = '',
+        section_separators = '',
         theme = {
-          normal = { c = { fg = colors.fg, bg = colors.bg } },   -- Active statusline colors
-          inactive = { c = { fg = colors.bg, bg = colors.fg } }, -- Inactive statusline colors
+          normal = { c = { fg = colors.fg, bg = colors.bg } },
+          inactive = { c = { fg = colors.fg, bg = colors.bg } }, -- Simplified inactive theme
         },
       },
       sections = {
-        lualine_a = {}, -- Leftmost section
-        lualine_b = {}, -- Left section
-        lualine_c = {}, -- Middle-left section
-        lualine_x = {}, -- Middle-right section
-        lualine_y = {}, -- Right section
-        lualine_z = {}, -- Rightmost section
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {},
       },
       inactive_sections = {
-        lualine_a = {}, -- Inactive leftmost section
-        lualine_b = {}, -- Inactive left section
-        lualine_c = {}, -- Inactive middle-left section
-        lualine_x = {}, -- Inactive middle-right section
-        lualine_y = {}, -- Inactive right section
-        lualine_z = {}, -- Inactive rightmost section
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {
+          {
+
+            "location",
+            color = function()
+              return {
+                fg = colors.fg,
+                gui = 'bold',
+              }
+            end,
+          },
+        },
+        lualine_x = {
+          {
+            'filename',
+            icon = get_random_icon(icon_sets.waves),
+            color = function()
+              return { fg = get_animated_color(colors.fg), gui = 'bold,italic' }
+            end,
+          },
+        },
+        lualine_y = {},
+        lualine_z = {},
       },
     }
 
-    -- function to insert to the left in the status line
+    -- Helper functions
     local function ins_left(component)
       table.insert(config.sections.lualine_c, component)
     end
 
-    -- function to insert to the right in the status line
     local function ins_right(component)
       table.insert(config.sections.lualine_x, component)
     end
 
-    -- Helper function to create a separator component
     local function create_separator(side, use_mode_color)
       return {
         function()
@@ -222,7 +223,6 @@ return {
       }
     end
 
-    -- Helper function to create a component with mode-based colors
     local function create_mode_based_component(content, icon, color_fg, color_bg)
       return {
         content,
@@ -239,48 +239,28 @@ return {
       }
     end
 
-    -- Mode indicator function
+    -- Mode indicator
     local function mode()
       local mode_map = {
-        n = 'N',      -- Normal Mode
-        i = 'I',      -- Insert Mode
-        v = 'V',      -- Visual Mode
-        [''] = 'V',  -- Visual Block Mode
-        V = 'V',      -- Visual Line Mode
-        c = 'C',      -- Command Mode
-        no = 'N',     -- Operator-pending Mode
-        s = 'S',      -- Select Mode
-        S = 'S',      -- Select Mode
-        ic = 'I',     -- Insert Mode (Completion)
-        R = 'R',      -- Replace Mode
-        Rv = 'R',     -- Virtual Replace Mode
-        cv = 'C',     -- Command Mode
-        ce = 'C',     -- Command Mode
-        r = 'R',      -- Hit-enter Mode
-        rm = 'M',     -- More Mode
-        ['r?'] = '?', -- Prompt Mode
-        ['!'] = '!',  -- Shell Mode
-        t = 'T',      -- Terminal Mode
-        -- n = "NORMAL",
-        -- i = "INSERT",
-        -- v = "VISUAL",
-        -- [''] = "V-BLOCK",
-        -- V = "V-LINE",
-        -- c = "COMMAND",
-        -- no = "N-OPERATOR",
-        -- s = "SELECT",
-        -- S = "S-LINE",
-        -- [''] = "S-BLOCK",
-        -- ic = "INSERT COMPL",
-        -- R = "REPLACE",
-        -- Rv = "V-REPLACE",
-        -- cv = "COMMAND",
-        -- ce = "COMMAND",
-        -- r = "PROMPT",
-        -- rm = "MORE",
-        -- ['r?'] = "CONFIRM",
-        -- ['!'] = "SHELL",
-        -- t = "TERMINAL",
+        n = 'N',
+        i = 'I',
+        v = 'V',
+        [''] = 'V',
+        V = 'V',
+        c = 'C',
+        no = 'N',
+        s = 'S',
+        S = 'S',
+        ic = 'I',
+        R = 'R',
+        Rv = 'R',
+        cv = 'C',
+        ce = 'C',
+        r = 'R',
+        rm = 'M',
+        ['r?'] = '?',
+        ['!'] = '!',
+        t = 'T',
       }
       return mode_map[vim.fn.mode()] or "[UNKNOWN]"
     end
@@ -303,7 +283,6 @@ return {
       end,
       icon = ' ',
       color = function()
-        -- Check if a virtual environment is active by looking for the VIRTUAL_ENV environment variable
         local virtual_env = vim.env.VIRTUAL_ENV
         if virtual_env then
           return { fg = get_animated_color(), gui = 'bold' }
@@ -313,7 +292,6 @@ return {
       end,
     }
 
-    -- Right separator
     ins_left(create_separator('right'))
 
     ins_left(create_mode_based_component('filename', nil, colors.bg))
@@ -322,7 +300,7 @@ return {
 
     ins_left {
       function()
-        return '' -- 󱎶
+        return ''
       end,
       color = function()
         return { fg = get_mode_color() }
@@ -330,7 +308,6 @@ return {
       cond = conditions.hide_in_width,
     }
 
-    --
     ins_left {
       function()
         local git_status = vim.b.gitsigns_status_dict
@@ -349,17 +326,6 @@ return {
       cond = conditions.hide_in_width,
     }
 
-    -- ins_left {
-    --   'diff',
-    --   symbols = { added = '󰯫 ', modified = '󰰏 ', removed = '󰰞 ' },
-    --   diff_color = {
-    --     added = { fg = colors.green },
-    --     modified = { fg = colors.orange },
-    --     removed = { fg = colors.red },
-    --   },
-    --   cond = conditions.hide_in_width,
-    -- }
-
     for _, icons in pairs(icon_sets_list) do
       ins_left {
         function() return get_random_icon(icons) end,
@@ -376,30 +342,6 @@ return {
     }
 
     -- RIGHT
-    -- local function get_weather()
-    --   local job = require('plenary.job')
-    --   job:new({
-    --     command = 'curl',
-    --     args = { '-s', 'wttr.in/?format=%c+%t' },
-    --     on_exit = function(j, return_val)
-    --       if return_val == 0 then
-    --         local weather = table.concat(j:result(), ' ')
-    --         vim.schedule(function()
-    --           vim.b.weather = weather
-    --         end)
-    --       end
-    --     end,
-    --   }):start()
-    --   return vim.b.weather or 'N/A'
-    -- end
-    --
-    -- ins_right {
-    --   function() return get_weather() end,
-    --   icon = '󰖐 ',
-    --   color = { fg = colors.cyan, gui = 'bold' },
-    -- }
-    --
-
     ins_right {
       function()
         local reg = vim.fn.reg_recording()
@@ -415,7 +357,6 @@ return {
       'selectioncount',
       color = { fg = colors.green, gui = 'bold' },
     }
-
 
     for _, icons in ipairs(reversed_icon_sets) do
       ins_right {
@@ -435,8 +376,6 @@ return {
         if next(clients) == nil then
           return msg
         end
-
-        -- Map LSP names to their shortened versions
         local lsp_short_names = {
           pyright = "py",
           tsserver = "ts",
@@ -451,13 +390,10 @@ return {
           dockerls = "docker",
           sqlls = "sql",
           yamlls = "yaml",
-          -- Add more mappings as needed
         }
-
         for _, client in ipairs(clients) do
           local filetypes = client.config.filetypes
           if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-            -- Return the shortened name if available, otherwise return the first two letters of the LSP name
             return lsp_short_names[client.name] or client.name:sub(1, 2)
           end
         end
@@ -469,7 +405,7 @@ return {
 
     ins_right {
       function()
-        return '' -- 󱎶
+        return ''
       end,
       color = function()
         return { fg = get_mode_color() }
@@ -485,18 +421,18 @@ return {
 
     ins_right {
       'branch',
-      icon = ' ', --a
+      icon = ' ',
       fmt = function(branch)
         if branch == '' or branch == nil then
-          return 'No Repo' -- Change this to any icon or text you prefer
+          return 'No Repo'
         end
         return branch
       end,
       color = function()
-        local mode_color = get_mode_color() -- Get the color for the current mode
+        local mode_color = get_mode_color()
         return {
-          fg = mode_color,                  -- Set background to the opposite color
-          gui = 'bold',                     -- Keep the text bold
+          fg = mode_color,
+          gui = 'bold',
         }
       end,
     }
