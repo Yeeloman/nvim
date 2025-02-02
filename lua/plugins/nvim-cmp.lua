@@ -26,7 +26,7 @@ return {
         completion = cmp.config.window.bordered({
           border = "rounded", -- Border style
           winblend = 10,      -- Transparency (0-100)
-          col_offset = 5,     -- Horizontal offset
+          col_offset = 7,     -- Horizontal offset
           side_padding = 2,   -- Padding inside the menu
         }),
         documentation = cmp.config.window.bordered({
@@ -52,38 +52,9 @@ return {
         { name = "path" },
         { name = "nvim_lua" },
       }),
-      -- Formatting the completion items
-      -- formatting = {
-      --   format = function(entry, vim_item)
-      --     -- Customize the appearance of each item in the menu
-      --     vim_item.menu = ({
-      --       nvim_lsp = "[LSP]",
-      --       vsnip = "[Snippet]",
-      --       buffer = "[Buffer]",
-      --       path = "[Path]",
-      --       cmdline = "[Cmdline]",         -- Add this for command-line completion
-      --       cmdline_history = "[History]", -- Add this for command-line history completion
-      --     })[entry.source.name]
-      --     return vim_item
-      --   end,
-      -- },
       experimental = {
         ghost_text = true, -- Show ghost text for the selected item
       },
-    })
-
-    -- Set up `/` and `:` command-line completions
-    cmp.setup.cmdline("/", {
-      sources = {
-        { name = "buffer" },
-      },
-    })
-
-    cmp.setup.cmdline(":", {
-      sources = cmp.config.sources({
-        { name = "path" },
-        { name = "cmdline" },
-      }),
     })
   end,
 }

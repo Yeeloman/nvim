@@ -1,3 +1,4 @@
+-- if true then return {} end
 return -- lazy.nvim
 {
   "folke/noice.nvim",
@@ -8,11 +9,23 @@ return -- lazy.nvim
   },
   opts = {
     cmdline = {
-      enabled = true, -- Enable the command-line UI
-      view = "cmdline_popup", -- Use a popup style cmdline_popup
+      enabled = true,   -- Enable the command-line UI
+      view = "cmdline", -- Use a popup style cmdline_popup
       format = {
-        cmdline = { icon = " " }, -- Customize the command-line icon
-      },
+        -- Default command-line icon
+        cmdline = { icon = "   ", highlight = "NoiceCmdlineIcon" },
+        -- Lua command icon
+        lua = { icon = "  ", highlight = "NoiceCmdlineLua" },
+        -- Shell command icon
+        shell = { icon = "  ", highlight = "NoiceCmdlineShell" },
+        -- Search command icon
+        search_down = { icon = "󰶚  ", highlight = "NoiceCmdlineSearch" },
+        search_up = { icon = "󰶚  ", highlight = "NoiceCmdlineSearch" },
+        -- Filter command icon
+        filter = { icon = "  ", highlight = "NoiceCmdlineFilter" },
+        -- Help command icon
+        help = { icon = "  ", highlight = "NoiceCmdlineHelp" },
+      }
     },
     messages = {
       enabled = true, -- Enable messages (e.g., `:messages`)
@@ -27,6 +40,44 @@ return -- lazy.nvim
       },
     },
     views = {
+      -- Custom view for the cmdline
+      cmdline = {
+        border = {
+          style = "none", -- Options: "none", "single", "double", "rounded", "solid"
+          padding = { 1, 1 },
+        },
+        position = {
+          row = "90%", -- Position from the top
+          col = "50%", -- Center horizontally
+        },
+        size = {
+          width = "60%",   -- Auto-adjust width
+          height = "auto", -- Auto-adjust height
+        },
+        win_options = {
+          winblend = 10,                                                        -- Transparency
+          winhighlight = "NormalFloat:MyNormalFloat,FloatBorder:MyFloatBorder", -- Custom highlights
+        },
+      },
+      popupmenu = {
+        relative = "editor",
+        position = {
+          row = "70%",
+          col = "50%",
+        },
+        size = {
+          width = "40%",
+          height = "30%",
+        },
+        border = {
+          style = "double",
+          padding = { 1, 2 },
+        },
+        win_options = {
+          winblend = 10,
+          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+        },
+      },
       cmdline_popup = {
         border = {
           style = "none", -- Options: "none", "single", "double", "rounded", "solid"
@@ -34,7 +85,7 @@ return -- lazy.nvim
         },
         position = {
           row = "15%",
-          col = "90%",
+          col = "50%",
         },
         size = {
           width = "auto",
@@ -69,5 +120,13 @@ return -- lazy.nvim
       },
     },
   },
-  config = true,
+  -- config = true,
+  config = function(_, opts)
+    require("noice").setup(opts)
+
+    -- Define custom highlights
+    local shared_colors = require("shared.colors")
+    local wal_colors = shared_colors.read_wal_colors()
+    vim.api.nvim_set_hl(0, "NoiceCmdlineIcon", { fg = wal_colors[3] or "#d360aa", bold = true }) -- Default command-line icon
+  end,
 }

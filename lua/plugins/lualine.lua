@@ -17,23 +17,8 @@ return {
       red      = '#ff3344', -- Strong red
     }
 
-    local function read_wal_colors()
-      local colors = {}
-      local color_file = os.getenv("HOME") .. "/.cache/wal/colors"
-
-      -- Try to read from the colors file first
-      local file = io.open(color_file, "r")
-      if file then
-        for line in file:lines() do
-          table.insert(colors, line)
-        end
-        file:close()
-      end
-
-      return colors
-    end
-
-    local wal_colors = read_wal_colors()
+    local shared_colors = require("shared.colors")
+    local wal_colors = shared_colors.read_wal_colors()
 
     local colors = {
       bg       = wal_colors[1] or default_colors.bg, -- Dark background
