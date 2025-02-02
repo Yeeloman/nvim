@@ -6,7 +6,7 @@ return {
       require('telescope').setup({
         pickers = {
           buffers = {
-            theme = "cursor", -- Use a predefined theme like dropdown, cursor, or ivy
+            theme = "dropdown", -- Use a predefined theme like dropdown, cursor, or ivy
             previewer = false,
             layout_config = {
               width = 0.4,
@@ -55,7 +55,7 @@ return {
   {
     'nvim-telescope/telescope-ui-select.nvim',
     event = "VeryLazy",
-    config = function ()
+    config = function()
       require("telescope").setup {
         extensions = {
           ["ui-select"] = {

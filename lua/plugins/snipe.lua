@@ -13,9 +13,13 @@ return {
     local snipe = require("snipe")
     snipe.setup({
       ui = {
-        position = "center", -- "topleft", "bottomleft", "topright", "bottomright", "center", "cursor"
+        position = "center",       -- "topleft", "bottomleft", "topright", "bottomright", "center", "cursor"
         preselect_current = true,
-        text_align = "file-first",
+        text_align = "file-first", -- right, left, file-first
+        open_win_override = {
+          -- title = "",
+          border = "double", -- use "rounded" for rounded border
+        },
       },
       hints = {
         dictionary = "asfghl;wertyuiop",
