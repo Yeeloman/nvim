@@ -29,6 +29,7 @@
   "muren.nvim": { "branch": "main", "commit": "818c09097dba1322b2ca099e35f7471feccfef93" },
   "neo-tree.nvim": { "branch": "v3.x", "commit": "5d172e8315444dbc32867d1c7b04d8e7e68ec4e1" },
   "neogen": { "branch": "main", "commit": "dd0301bfba1f83a3bc009b5430fce7aa3cee6941" },
+  "neopywal": { "branch": "master", "commit": "71615495cf1781468b7956d8d7c9e2a56717d194" },
   "neotab.nvim": { "branch": "master", "commit": "f6ed1ef49f32586f5db95edae5d6f264c8180d85" },
   "noice.nvim": { "branch": "main", "commit": "e3c68a4d2275a01268a52e2931bfccfbfb693d15" },
   "none-ls.nvim": { "branch": "main", "commit": "ed8f80849ef1ad31c2f74679fafdef7801091247" },

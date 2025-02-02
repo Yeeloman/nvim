@@ -31,39 +31,14 @@ return {
       green    = wal_colors[4] or default_colors.green,    -- Muted green/yellow mix for balance
       orange   = wal_colors[7] or default_colors.orange,   -- Softer orange tone
       violet   = wal_colors[5] or default_colors.violet,   -- Strong violet/purple tone
-      magenta  = wal_colors[10] or default_colors.magenta, -- Deep magenta/red mix
-      blue     = wal_colors[12] or default_colors.blue,    -- Light-medium blue for balance
+      magenta  = wal_colors[3] or default_colors.magenta,  -- Deep magenta/red mix
+      blue     = wal_colors[4] or default_colors.blue,     -- Light-medium blue for balance
       red      = wal_colors[9] or default_colors.red,      -- Strong red
     }
 
-    local function luminance(color)
-      local r, g, b = color:match("#(%x%x)(%x%x)(%x%x)")
-      r, g, b = tonumber(r, 16) / 255, tonumber(g, 16) / 255, tonumber(b, 16) / 255
-      return 0.2126 * r + 0.7152 * g + 0.0722 * b
-    end
-
-    local function adjust_color(color, factor)
-      local r, g, b = color:match("#(%x%x)(%x%x)(%x%x)")
-      r, g, b = tonumber(r, 16), tonumber(g, 16), tonumber(b, 16)
-
-      -- Increase brightness if too dark, decrease if too bright
-      r = math.min(math.max(r * factor, 0), 255)
-      g = math.min(math.max(g * factor, 0), 255)
-      b = math.min(math.max(b * factor, 0), 255)
-
-      return string.format("#%02x%02x%02x", r, g, b)
-    end
-
-    local function ensure_contrast(color, default)
-      local contrast = luminance(color) - luminance(colors.bg)
-      if contrast < 0.3 then          -- Use a better contrast ratio
-        return adjust_color(color, 1) -- Adjust brightness
-      end
-      return color
-    end
 
     for key, default_color in pairs(default_colors) do
-      colors[key] = ensure_contrast(colors[key], default_color)
+      colors[key] = shared_colors.ensure_contrast(colors[key], default_color)
     end
 
     local function get_mode_color()

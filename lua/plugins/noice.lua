@@ -43,7 +43,7 @@ return -- lazy.nvim
       -- Custom view for the cmdline
       cmdline = {
         border = {
-          style = "none", -- Options: "none", "single", "double", "rounded", "solid"
+          style = "double", -- Options: "none", "single", "double", "rounded", "solid"
           padding = { 1, 1 },
         },
         position = {
