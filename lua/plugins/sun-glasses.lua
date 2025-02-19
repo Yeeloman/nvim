@@ -2,7 +2,7 @@ return {
   "miversen33/sunglasses.nvim",
   event = "UIEnter",
   opts = {
-    filter_type = "SHADE", -- some other options: NOSYNTAX TINT
-    filter_percent = 0.25,
+    filter_type = "SHADE", -- some other options: NOSYNTAX TINT SHADE
+    filter_percent = .10,
   },
 }

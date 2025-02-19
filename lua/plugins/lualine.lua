@@ -163,6 +163,7 @@ return {
           normal = { c = { fg = colors.fg, bg = colors.bg } },
           inactive = { c = { fg = colors.fg, bg = colors.bg } }, -- Simplified inactive theme
         },
+        disabled_filetypes = { "neo-tree", "undotree", "sagaoutline", "diff" },
       },
       sections = {
         lualine_a = {},
