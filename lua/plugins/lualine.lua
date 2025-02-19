@@ -322,7 +322,7 @@ return {
         end
         return ''
       end,
-      icon = '󰊢 ',
+      -- icon = '󰊢 ',
       color = { fg = colors.yellow, gui = 'bold' },
       cond = conditions.hide_in_width,
     }
