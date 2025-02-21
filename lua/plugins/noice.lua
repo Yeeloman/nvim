@@ -126,8 +126,8 @@ return -- lazy.nvim
     require("noice").setup(opts)
 
     -- Define custom highlights
-    local shared_colors = require("shared.colors")
-    local wal_colors = shared_colors.read_wal_colors()
+    local shared_colors = require("shared.PaletteGen")
+    local wal_colors = shared_colors.colors_to_strings(shared_colors.read_wal_colors())
     vim.api.nvim_set_hl(0, "NoiceCmdlineIcon", { fg = wal_colors[3] or "#d360aa", bold = true }) -- Default command-line icon
 
     -- Popup Menu Background Color

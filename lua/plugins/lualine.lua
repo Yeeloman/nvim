@@ -17,28 +17,25 @@ return {
       red      = '#ff3344', -- Strong red
     }
 
-    local shared_colors = require("shared.PaletteGen")
+    local shared_colors = require("lua.shared.PaletteGen")
     local wal_colors = shared_colors.read_wal_colors()
-    local generated_palette = shared_colors.generate_palette(wal_colors, 12)
+    local generated_palette = shared_colors.generate_palette(wal_colors, 11)
     local wal_colors = shared_colors.colors_to_strings(generated_palette)
 
     local colors = {
       bg       = wal_colors[1] or default_colors.bg, -- Dark background
-      fg       = wal_colors[8] or default_colors.fg, -- Light foreground for contrast
+      fg       = wal_colors[2] or default_colors.fg, -- Light foreground for contrast
       yellow   = wal_colors[3] or default_colors.yellow,
-      cyan     = wal_colors[6] or default_colors.cyan,
-      darkblue = wal_colors[2] or default_colors.darkblue,
-      green    = wal_colors[4] or default_colors.green,
+      cyan     = wal_colors[4] or default_colors.cyan,
+      darkblue = wal_colors[5] or default_colors.darkblue,
+      green    = wal_colors[6] or default_colors.green,
       orange   = wal_colors[7] or default_colors.orange,
-      violet   = wal_colors[5] or default_colors.violet,
-      magenta  = wal_colors[3] or default_colors.magenta,
-      blue     = wal_colors[4] or default_colors.blue,
-      red      = wal_colors[9] or default_colors.red,
+      violet   = wal_colors[8] or default_colors.violet,
+      magenta  = wal_colors[9] or default_colors.magenta,
+      blue     = wal_colors[10] or default_colors.blue,
+      red      = wal_colors[11] or default_colors.red,
     }
 
-    for key, default_color in pairs(default_colors) do
-      colors[key] = shared_colors.ensure_contrast(colors[key], default_color)
-    end
 
     local function get_mode_color()
       local mode_color = {

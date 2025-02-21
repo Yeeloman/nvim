@@ -21,7 +21,7 @@ return {
     priority = 1000,
     opts = {},
     config = function()
-      local M = require("shared.colors")
+      local M = require("shared.PaletteGen")
       local base_colors = M.read_wal_colors()
 
       -- Get the number of unique colors needed for custom_colors
@@ -39,7 +39,7 @@ return {
       }
 
       local needed_colors_count = #custom_colors_keys
-      local generated_colors = M.generate_variants(base_colors, needed_colors_count)
+      local generated_colors = M.colors_to_strings(M.generate_palette(base_colors, needed_colors_count))
 
       -- Map generated colors dynamically
       local custom_colors = {}

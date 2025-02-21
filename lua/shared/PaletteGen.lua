@@ -1,5 +1,5 @@
 local M = {}
-local Color = require("lua-color")
+local Color = require("shared.lua-color")
 
 -- Function to read colors from the wal color file
 function M.read_wal_colors()
