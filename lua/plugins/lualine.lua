@@ -17,8 +17,10 @@ return {
       red      = '#ff3344', -- Strong red
     }
 
-    local shared_colors = require("shared.colors")
+    local shared_colors = require("shared.PaletteGen")
     local wal_colors = shared_colors.read_wal_colors()
+    local generated_palette = shared_colors.generate_palette(wal_colors, 12)
+    local wal_colors = shared_colors.colors_to_strings(generated_palette)
 
     local colors = {
       bg       = wal_colors[1] or default_colors.bg, -- Dark background
