@@ -24,26 +24,46 @@ return {
       local M = require("shared.PaletteGen")
       local base_colors = M.read_wal_colors()
 
-      -- Get the number of unique colors needed for custom_colors
-      local custom_colors_keys = {
-        "dim_bg", "comment", "cursorline", "directory",
-        "diff_added", "diff_changed", "diff_removed", "diff_untracked",
-        "error", "hint", "info", "unnecessary", "warn", "ok", "inlay_hints",
-        "variable", "constant", "string", "character", "number", "boolean", "float",
-        "identifier", "func", "statement", "conditional", "loop", "label",
-        "exception", "operator", "keyword", "debug",
-        "preproc", "include", "define", "macro", "precondit",
-        "type", "structure", "storageclass", "typedef",
-        "special", "specialchar", "tag", "delimiter", "specialcomment",
-        "linenrabove", "linenr", "linenrbelow"
+      -- Define color groups for better consistency
+      local custom_color_groups = {
+        highlights = { "cursorline", "directory", "identifier", "func" },
+        syntax = { "variable", "constant", "string", "character", "number", "boolean", "float" },
+        ui = { "dim_bg", "comment", "linenrabove", "linenr", "linenrbelow" },
+        diagnostics = { "error", "hint", "info", "warn", "ok", "unnecessary", "inlay_hints" },
+        git = { "diff_added", "diff_changed", "diff_removed", "diff_untracked" },
+        control = { "statement", "conditional", "loop", "label", "exception", "operator", "keyword", "debug" },
+        preproc = { "preproc", "include", "define", "macro", "precondit" },
+        types = { "type", "structure", "storageclass", "typedef" },
+        special = { "special", "specialchar", "tag", "delimiter", "specialcomment" },
       }
 
-      local needed_colors_count = #custom_colors_keys
+      -- Collect all keys and shuffle them
+      local all_keys = {}
+      for _, group in pairs(custom_color_groups) do
+        for _, key in ipairs(group) do
+          table.insert(all_keys, key)
+        end
+      end
+
+      math.randomseed(os.time())
+
+      -- Shuffle function
+      local function shuffle(tbl)
+        for i = #tbl, 2, -1 do
+          local j = math.random(i)
+          tbl[i], tbl[j] = tbl[j], tbl[i]
+        end
+      end
+
+      shuffle(all_keys)
+
+      -- Get the number of unique colors needed
+      local needed_colors_count = #all_keys
       local generated_colors = M.colors_to_strings(M.generate_palette(base_colors, needed_colors_count))
 
-      -- Map generated colors dynamically
+      -- Distribute colors dynamically after shuffling
       local custom_colors = {}
-      for i, key in ipairs(custom_colors_keys) do
+      for i, key in ipairs(all_keys) do
         custom_colors[key] = generated_colors[i]
       end
 
