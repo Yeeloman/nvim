@@ -17,7 +17,7 @@ return {
         preselect_current = true,
         text_align = "file-first", -- right, left, file-first
         open_win_override = {
-          title = "Switch",
+          title = "",
           border = "double", -- use "rounded" for rounded border
         },
       },
@@ -34,15 +34,21 @@ return {
         -- Open buffer in split, based on `vim.opt.splitbelow`
         open_split = "H",
 
-        -- close_buffer = "d",
+        close_buffer = "d",
+
+        -- Change tag manually
+        change_tag = "C",
       },
       sort = "default",
     })
 
+    local paletteGen = require("shared.PaletteGen")
+
+    local wal_colors = paletteGen.colors_to_strings(paletteGen.read_wal_colors())
     -- Customize highlight groups for Snipe
-    vim.api.nvim_set_hl(0, "SnipeNormal", { bg = "#1e1e2e", fg = "#cdd6f4" })     -- Background and text color
-    vim.api.nvim_set_hl(0, "SnipeBorder", { bg = "#1e1e2e", fg = "#89b4fa" })     -- Border color
-    vim.api.nvim_set_hl(0, "SnipeCursorLine", { bg = "#313244", fg = "#cdd6f4" }) -- Highlight for selected item
-    vim.api.nvim_set_hl(0, "SnipeHint", { bg = "#1e1e2e", fg = "#f38ba8" })       -- Hint text color
-  end,
+    vim.api.nvim_set_hl(0, "SnipeNormal", { fg = wal_colors[7], bg = wal_colors[1] })     -- Dark background with soft text color
+    vim.api.nvim_set_hl(0, "SnipeBorder", { fg = wal_colors[3] })                         -- Keeping the border color as requested
+    vim.api.nvim_set_hl(0, "SnipeCursorLine", { bg = wal_colors[4], fg = wal_colors[8] }) -- Brighter background for selection with good contrast
+    vim.api.nvim_set_hl(0, "SnipeHint", { bg = wal_colors[6], fg = wal_colors[1] })
+  end
 }
