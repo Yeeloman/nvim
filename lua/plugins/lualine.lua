@@ -232,7 +232,7 @@ return {
           local mode_color = get_mode_color()
           local opposite_color = get_opposite_color(mode_color)
           return {
-            fg = color_fg or colors.bg,
+            fg = color_fg or colors.fg,
             bg = color_bg or opposite_color,
             gui = 'bold',
           }
