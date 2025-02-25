@@ -5,20 +5,67 @@ return {
   opts = {
     bigfile = { enabled = true },
     dashboard = {
+      formats = {
+        key = function(item)
+          return { { "[", hl = "special" }, { item.key, hl = "key" }, { "]", hl = "special" } }
+        end,
+      },
       sections = {
         {
           section = "terminal",
-          -- cmd = "chafa $HOME/.config/nvim/lua/eclipse.jpg --format symbols --symbols vhalf --size 60x17 --stretch; sleep .1",
           cmd =
-          "chafa $(cat $HOME/.config/nvim/lua/current_wallpaper.txt) --format symbols --symbols vhalf --size 60x17 --stretch || chafa $HOME/.config/nvim/lua/eclipse.jpg --format symbols --symbols vhalf --size 60x17 --stretch; sleep .1",
+          "chafa $(cat $HOME/.config/nvim/lua/current_wallpaper.txt) --format symbols --symbols block --size 60x17 --stretch || chafa $HOME/.config/nvim/lua/eclipse.jpg --format symbols --symbols block --size 60x17 --stretch; sleep .1",
           height = 17,
           padding = 1,
         },
-        -- {
-        --   pane = 2,
-        { section = "keys",   gap = 1, padding = 1 },
-        { section = "startup" },
-        -- },
+        {
+          gap = 1,
+          {
+            action = "<leader>ff",
+            key = "f",
+            desc = "Find File",
+            icon = " ",
+          },
+          {
+            action = "<leader>fg",
+            key = "t",
+            desc = "Find Text",
+            icon = "󱎸 ",
+          },
+          {
+            action = "<leader>qs",
+            key = "s",
+            desc = "Sessions",
+            icon = " ",
+          },
+          {
+            icon = " ",
+            desc = "Browse Repo",
+            padding = 1,
+            key = "b",
+            action = function()
+              Snacks.gitbrowse()
+            end,
+          },
+          {
+            action = ":q",
+            key = "q",
+            desc = "Quit",
+            icon = "󰈆 ",
+          },
+          {
+            icon = " ",
+            title = "Git Status",
+            section = "terminal",
+            enabled = function()
+              return Snacks.git.get_root() ~= nil
+            end,
+            cmd = "git status --short --branch --renames",
+            height = 2,
+            ttl = 1 * 60,
+            indent = 3,
+          },
+        },
       },
     },
     notifier = {
@@ -37,7 +84,7 @@ return {
     },
   },
   keys = {
-    { "<leader>.",  function() Snacks.scratch() end,               desc = "Toggle Scratch Buffer" },
+    { "<leader>²",  function() Snacks.scratch() end,               desc = "Toggle Scratch Buffer" },
     -- { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
     { "<leader>nh", function() Snacks.notifier.show_history() end, desc = "Notification History" },
     { "<leader>bd", function() Snacks.bufdelete() end,             desc = "Delete Buffer" },
