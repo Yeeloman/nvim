@@ -53,18 +53,18 @@ return {
             desc = "Quit",
             icon = "󰈆 ",
           },
-          {
-            icon = " ",
-            title = "Git Status",
-            section = "terminal",
-            enabled = function()
-              return Snacks.git.get_root() ~= nil
-            end,
-            cmd = "git status --short --branch --renames",
-            height = 2,
-            ttl = 1 * 60,
-            indent = 3,
-          },
+          -- {
+          --   icon = " ",
+          --   title = "Git Status",
+          --   section = "terminal",
+          --   enabled = function()
+          --     return Snacks.git.get_root() ~= nil
+          --   end,
+          --   cmd = "git status --short --branch --renames",
+          --   height = 2,
+          --   ttl = 1 * 60,
+          --   indent = 3,
+          -- },
         },
       },
     },
@@ -85,12 +85,13 @@ return {
   },
   keys = {
     { "<leader>²",  function() Snacks.scratch() end,               desc = "Toggle Scratch Buffer" },
-    -- { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+    { "<leader>S",  function() Snacks.scratch.select() end,        desc = "Select Scratch Buffer" },
     { "<leader>nh", function() Snacks.notifier.show_history() end, desc = "Notification History" },
     { "<leader>bd", function() Snacks.bufdelete() end,             desc = "Delete Buffer" },
     { "<leader>cR", function() Snacks.rename.rename_file() end,    desc = "Rename File" },
     { "<leader>gg", function() Snacks.lazygit() end,               desc = "Lazygit" },
     { "<leader>un", function() Snacks.notifier.hide() end,         desc = "Dismiss All Notifications" },
     { "<leader>tt", function() Snacks.terminal() end,              desc = "Toggle Terminal",          mode = { "n", "t" } },
+    { "<leader>z",  function() Snacks.zen() end,                   desc = "Toggle Zen Mode" },
   },
 }
