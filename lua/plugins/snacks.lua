@@ -8,13 +8,15 @@ return {
       sections = {
         {
           section = "terminal",
-          cmd = "chafa $HOME/.config/nvim/lua/eclipse.jpg --format symbols --symbols vhalf --size 60x17 --stretch; sleep .1",
+          -- cmd = "chafa $HOME/.config/nvim/lua/eclipse.jpg --format symbols --symbols vhalf --size 60x17 --stretch; sleep .1",
+          cmd =
+          "chafa $(cat $HOME/.config/nvim/lua/current_wallpaper.txt) --format symbols --symbols vhalf --size 60x17 --stretch || chafa $HOME/.config/nvim/lua/eclipse.jpg --format symbols --symbols vhalf --size 60x17 --stretch; sleep .1",
           height = 17,
           padding = 1,
         },
         -- {
         --   pane = 2,
-        { section = "keys", gap = 1, padding = 1 },
+        { section = "keys",   gap = 1, padding = 1 },
         { section = "startup" },
         -- },
       },
@@ -35,13 +37,13 @@ return {
     },
   },
   keys = {
-    { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+    { "<leader>.",  function() Snacks.scratch() end,               desc = "Toggle Scratch Buffer" },
     -- { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
     { "<leader>nh", function() Snacks.notifier.show_history() end, desc = "Notification History" },
-    { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
-    { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
-    { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
-    { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
-    { "<leader>tt", function() Snacks.terminal() end, desc = "Toggle Terminal", mode = { "n", "t" } },
+    { "<leader>bd", function() Snacks.bufdelete() end,             desc = "Delete Buffer" },
+    { "<leader>cR", function() Snacks.rename.rename_file() end,    desc = "Rename File" },
+    { "<leader>gg", function() Snacks.lazygit() end,               desc = "Lazygit" },
+    { "<leader>un", function() Snacks.notifier.hide() end,         desc = "Dismiss All Notifications" },
+    { "<leader>tt", function() Snacks.terminal() end,              desc = "Toggle Terminal",          mode = { "n", "t" } },
   },
 }
