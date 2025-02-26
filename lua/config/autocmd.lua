@@ -1,3 +1,7 @@
+-- get the colors as a table
+local pg = require("shared.PaletteGen")
+local colors = pg.colors_to_strings(pg.read_wal_colors())
+
 vim.api.nvim_exec(
   [[
   augroup MyCursorShapes
@@ -17,6 +21,13 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   end,
 })
 
+-- style the indent color
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = function()
+    vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { fg = colors[5] or "#FF0000", nocombine = true })
+  end,
+})
 -- Auto indent
 -- vim.api.nvim_create_autocmd("BufWritePre", {
 --   pattern = "*",

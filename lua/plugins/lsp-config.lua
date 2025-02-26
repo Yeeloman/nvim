@@ -19,6 +19,7 @@ local lang_servers = {
   "emmet_language_server",
   "pyright",
   "tailwindcss",
+  "marksman",
 }
 
 -- Function to set LSP keybindings
