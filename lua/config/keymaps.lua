@@ -73,3 +73,7 @@ keymap.set('v', 'p', '"_dP', opts)
 
 -- key map for lazy
 keymap.set('n', '<leader>l', "<cmd>Lazy<CR>", { desc = "Open lazy", noremap = true, silent = true })
+
+--keymap to look for highlights
+keymap.set("n", "<leader>th", "<cmd>Telescope highlights<CR>",
+  { desc = "Open highlights", noremap = true, silent = true })
