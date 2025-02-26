@@ -40,7 +40,7 @@ keymap.set("n", "<F4>", ":source ~/.config/nvim/init.lua<CR>", opts)
 keymap.set('n', 'gv', '<C-v>', opts)
 
 -- navigate wrapped lines gracefully
-keymap.set('n', 'j', 'j', silent_opts)
+keymap.set('n', 'j', 'gj', silent_opts)
 keymap.set('n', 'k', 'gk', silent_opts)
 
 -- Window management
@@ -59,8 +59,6 @@ keymap.set("n", "<C-k>", "<C-w>k", opts)
 keymap.set('n', '<leader>to', ':tabnew<CR>', opts)   -- open new tab
 keymap.set('n', '<leader>tx', ':tabclose<CR>', opts) -- close current tab
 
-keymap.set("v", "<", "<gv")
-keymap.set("v", ">", ">gv")
 
 -- move selected lines
 keymap.set("v", "<S-k>", ":m '<-2<CR>gv=gv")
