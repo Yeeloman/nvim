@@ -76,7 +76,7 @@ return {
     statuscolumn = { enabled = false },
     words = { enabled = true },
     scratch = {
-      icon = " ",
+      icon = " ",
     },
     lazygit = {
       -- Theme for lazygit
