@@ -75,17 +75,40 @@ return {
     quickfile = { enabled = true },
     statuscolumn = { enabled = false },
     words = { enabled = true },
+    scratch = {
+      icon = " ",
+    },
+    lazygit = {
+      -- Theme for lazygit
+      theme = {
+        [241]                      = { fg = "Special" },
+        activeBorderColor          = { fg = "Character", bold = true },
+        cherryPickedCommitBgColor  = { fg = "Identifier" },
+        cherryPickedCommitFgColor  = { fg = "Function" },
+        defaultFgColor             = { fg = "Title" },
+        inactiveBorderColor        = { fg = "Tag" },
+        optionsTextColor           = { fg = "Visual" },
+        searchingActiveBorderColor = { fg = "MatchParen", bold = true },
+        selectedLineBgColor        = { bg = "IncSearch" }, -- set to `default` to have no background colour
+        unstagedChangesColor       = { fg = "PreProc" },
+      },
+
+    },
     styles = {
       notification = {
         wo = {
           wrap = true,
         },
       },
+      scratch = {
+        wo = { winhighlight = "NormalFloat:Normal" }, -- change the the theme using hi groups
+      },
     },
   },
+
   keys = {
     { "<leader>²",  function() Snacks.scratch() end,               desc = "Toggle Scratch Buffer" },
-    { "<leader>S",  function() Snacks.scratch.select() end,        desc = "Select Scratch Buffer" },
+    { "<leader>tS", function() Snacks.scratch.select() end,        desc = "Select Scratch Buffer" },
     { "<leader>nh", function() Snacks.notifier.show_history() end, desc = "Notification History" },
     { "<leader>bd", function() Snacks.bufdelete() end,             desc = "Delete Buffer" },
     { "<leader>cR", function() Snacks.rename.rename_file() end,    desc = "Rename File" },
