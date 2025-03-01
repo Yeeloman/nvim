@@ -45,7 +45,12 @@ wal -i "$WALLPAPER" --backend haishoku -q --saturate 0.9
 echo "$WALLPAPER" > "$HOME/.config/nvim/lua/current_wallpaper.txt"
 ```
 besides that here are some previews:
-<img src="images/entry_1.png" alt="Dinner" width="500">
+
+<p align="center">
+  <img src="images/entry_1.png" alt="Entry View" width="400">
+  <img src="images/cmd_1.png" alt="Command View" width="400">
+  <img src="images/nav_1.png" alt="Navigation View" width="400">
+</p>
 
 
 
