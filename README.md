@@ -47,9 +47,12 @@ echo "$WALLPAPER" > "$HOME/.config/nvim/lua/current_wallpaper.txt"
 besides that here are some previews:
 
 <p align="center">
-  <img src="images/entry_1.png" alt="Entry View" width="400">
-  <img src="images/cmd_1.png" alt="Command View" width="400">
-  <img src="images/nav_1.png" alt="Navigation View" width="400">
+  <img src="images/1.png" alt="preview_1" width="400">
+  <img src="images/2.png" alt="preview_2" width="400">
+  <img src="images/3.png" alt="preview_3" width="400">
+  <img src="images/4.png" alt="preview_4" width="400">
+  <img src="images/5.png" alt="preview_5" width="400">
+  <img src="images/6.png" alt="preview_6" width="400">
 </p>
 
 
