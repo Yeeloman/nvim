@@ -55,7 +55,7 @@ besides that here are some previews:
   <img src="images/6.png" alt="preview_6" width="400">
 </p>
 
-
+When it comes to syntax highlighting, the color distribution in Neopywal works relatively well. However, there are instances where the colors are too dark, making the text hard to read. To address this, I plan to create a dedicated color scheme that adapts to the wallpaper's colors. Hopefully, I can implement this soon.
 
 
 
