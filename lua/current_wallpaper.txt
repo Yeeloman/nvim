@@ -1,1 +1,1 @@
-/home/yeeloman/.config/nvim/.wallpapers/dorohe.jpg
+/home/yeeloman/.config/nvim/.wallpapers/that_feeling.jpg
