@@ -4,7 +4,7 @@ local opt = vim.opt
 opt.tabstop = 2
 opt.shiftwidth = 2
 opt.softtabstop = 2
-opt.expandtab = true
+opt.expandtab = false
 opt.smartindent = true
 opt.smarttab = true
 opt.wrap = true
@@ -33,8 +33,8 @@ opt.cursorcolumn = false
 opt.linebreak = true
 opt.showbreak = "+++"
 opt.ruler = true
-opt.list = true
 opt.wildmode = "longest,list,full"
+opt.list = true
 opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Behaviour
