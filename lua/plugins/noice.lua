@@ -13,16 +13,16 @@ return -- lazy.nvim
       view = "cmdline", -- Use a popup style cmdline_popup
       format = {
         -- Default command-line icon
-        cmdline = { icon = "   ", highlight = "NoiceCmdlineIcon" },
+        cmdline = { title = "", icon = "   ", highlight = "NoiceCmdlineIcon" },
         -- Lua command icon
         lua = { icon = "   ", highlight = "NoiceCmdlineLua" },
         -- Shell command icon
-        shell = { icon = "  ", highlight = "NoiceCmdlineShell" },
+        shell = { title = "Sh", icon = "  ", highlight = "NoiceCmdlineShell" },
         -- Search command icon
         search_down = { icon = "󰶚  ", highlight = "NoiceCmdlineSearch" },
         search_up = { icon = "󰶚  ", highlight = "NoiceCmdlineSearch" },
         -- Filter command icon
-        filter = { icon = "  ", highlight = "NoiceCmdlineFilter" },
+        filter = { title = "", icon = "  ", highlight = "NoiceCmdlineFilter" },
         -- Help command icon
         help = { icon = "  ", highlight = "NoiceCmdlineHelp" },
       }
