@@ -28,12 +28,13 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { fg = colors[5] or "#FF0000", nocombine = true })
   end,
 })
--- Auto indent
--- vim.api.nvim_create_autocmd("BufWritePre", {
---   pattern = "*",
---   callback = function()
---     local pos = vim.fn.getpos(".")
---     vim.cmd("normal gg=G")
---     vim.fn.setpos(".", pos)
---   end,
--- })
+
+-- Highlight Yanked text
+vim.api.nvim_create_augroup('highlight_yank', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group = 'highlight_yank',
+  pattern = '*',
+  callback = function()
+    vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 500 })
+  end
+})

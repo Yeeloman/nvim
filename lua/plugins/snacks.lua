@@ -113,6 +113,7 @@ return {
     { "<leader>bd", function() Snacks.bufdelete() end,             desc = "Delete Buffer" },
     { "<leader>cR", function() Snacks.rename.rename_file() end,    desc = "Rename File" },
     { "<leader>gg", function() Snacks.lazygit() end,               desc = "Lazygit" },
+    { "<leader>gl", function() Snacks.lazygit.log() end,           desc = "Lazygit logs" },
     { "<leader>un", function() Snacks.notifier.hide() end,         desc = "Dismiss All Notifications" },
     { "<leader>tt", function() Snacks.terminal() end,              desc = "Toggle Terminal",          mode = { "n", "t" } },
     { "<leader>z",  function() Snacks.zen() end,                   desc = "Toggle Zen Mode" },

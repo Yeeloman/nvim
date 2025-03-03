@@ -35,6 +35,7 @@ opt.showbreak = "+++"
 opt.ruler = true
 opt.list = true
 opt.wildmode = "longest,list,full"
+opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Behaviour
 opt.hidden = true
