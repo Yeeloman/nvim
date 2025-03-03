@@ -72,6 +72,10 @@ keymap.set('v', 'p', '"_dP', opts)
 -- key map for lazy
 keymap.set('n', '<leader>l', "<cmd>Lazy<CR>", { desc = "Open lazy", noremap = true, silent = true })
 
+-- Stay in visual mode after command indent < >
+keymap.set("v", "<", "<gv")
+keymap.set("v", ">", ">gv")
+
 --keymap to look for highlights
 keymap.set("n", "<leader>th", "<cmd>Telescope highlights<CR>",
-  { desc = "Open highlights", noremap = true, silent = true })
+	{ desc = "Open highlights", noremap = true, silent = true })
