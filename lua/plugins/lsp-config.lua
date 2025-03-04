@@ -90,6 +90,62 @@ return {
 	-- LSPConfig for configuring language servers
 	{
 		"neovim/nvim-lspconfig",
+		dependencies = {
+			{
+				"SmiteshP/nvim-navbuddy",
+				dependencies = {
+					"SmiteshP/nvim-navic",
+					"MunifTanjim/nui.nvim"
+				},
+				opts = {
+					window = {
+						border = "solid", -- "single", "rounded", "double", "solid", "none"
+						size = "80%",
+						sections = {
+							left = {
+								size = "20%",
+								border = nil, -- You can set border style for each section individually as well.
+							},
+							mid = {
+								size = "25%",
+								border = nil,
+							},
+							right = {
+								-- No size option for right most section. It fills to
+								-- remaining area.
+								border = nil,
+								preview = "leaf", -- Right section can show previews too.
+								-- Options: "leaf", "always" or "never"
+							}
+						},
+					},
+					node_markers = {
+						enabled = true,
+						icons = {
+							leaf = "  ",
+							leaf_selected = "  ",
+							branch = " 󱘎 ",
+						},
+					},
+					lsp = {
+						auto_attach = true
+					}
+				},
+				config = function(_, opts)
+					require("nvim-navbuddy").setup(opts)
+					vim.keymap.set(
+						"n",
+						"<leader>nb",
+						"<cmd>Navbuddy<CR>",
+						{
+							noremap = true,
+							silent = true,
+							desc = "NavBuddy"
+						}
+					)
+				end
+			}
+		},
 		config = function()
 			local lspconfig = require("lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
