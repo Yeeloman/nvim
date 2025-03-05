@@ -1,1 +1,1 @@
-/home/yeeloman/.config/nvim/.wallpapers/287839.jpg
+/home/yeeloman/.config/nvim/.wallpapers/starry_night.jpg

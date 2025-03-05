@@ -25,7 +25,7 @@ local lang_servers = {
 -- Function to set LSP keybindings
 local function set_lsp_keymaps()
 	keymap.set("n", "H", vim.lsp.buf.hover, { desc = "Show Def in Hover window" })
-	keymap.set("n", "<leader>gtD", vim.lsp.buf.definition, { desc = "Go to definition" })
+	keymap.set("n", "<leader>gtd", vim.lsp.buf.definition, { desc = "Go to definition" })
 	keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
 	keymap.set("n", "<leader>gf", vim.lsp.buf.format, { desc = "Format the current file" })
 end
