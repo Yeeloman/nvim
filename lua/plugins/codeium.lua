@@ -33,9 +33,9 @@ return {
 				-- Accept the current completion.
 				accept = "²",
 				-- Accept the next word.
-				accept_word = false,
+				accept_word = "<M-w>",
 				-- Accept the next line.
-				accept_line = false,
+				accept_line = "<M-l>",
 				-- Clear the virtual text.
 				clear = false,
 				-- Cycle to the next completion.
@@ -46,6 +46,18 @@ return {
 		}
 	},
 	config = function(_, opts)
-		require("codeium").setup(opts)
+		local status, codeium = pcall(require, "codeium")
+		if status then
+			codeium.setup(opts)
+		end
+		vim.keymap.set(
+			"i",
+			"<C-x>",
+			function() return vim.fn["codeium#Clear"]() end,
+			{
+				expr = true,
+				silent = true,
+			}
+		)
 	end
 }
