@@ -5,6 +5,7 @@ return {
 			'nvim-lua/plenary.nvim',
 			'nvim-lua/popup.nvim',
 			'nvim-telescope/telescope-media-files.nvim',
+			"desdic/telescope-rooter.nvim",
 		},
 		config = function()
 			require('telescope').setup({
@@ -72,10 +73,15 @@ return {
 						-- find command (defaults to `fd`)
 						find_cmd = "rg"
 					},
+					["rooter"] = {
+						enable = true,
+						patterns = { ".git" }
+					}
 				}
 			}
 			require("telescope").load_extension("ui-select")
 			require('telescope').load_extension('media_files')
+			require "telescope".load_extension("rooter")
 		end
 	}
 }
