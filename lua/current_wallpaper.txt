@@ -1,1 +1,1 @@
-/home/yeeloman/.config/nvim/.wallpapers/angel.jpg
+/home/yeeloman/.config/nvim/.wallpapers/spaceboy.jpg

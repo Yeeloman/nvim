@@ -86,7 +86,6 @@ return {
 			})
 		end,
 	},
-
 	-- LSPConfig for configuring language servers
 	{
 		"neovim/nvim-lspconfig",
