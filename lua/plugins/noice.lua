@@ -9,7 +9,7 @@ return -- lazy.nvim
 	},
 	opts = {
 		cmdline = {
-			enabled = true,   -- Enable the command-line UI
+			enabled = true, -- Enable the command-line UI
 			view = "cmdline", -- Use a popup style cmdline_popup
 			format = {
 				-- Default command-line icon
@@ -29,13 +29,13 @@ return -- lazy.nvim
 		},
 		messages = {
 			enabled = true, -- Enable messages (e.g., `:messages`)
-			view = "mini",  -- Use a minimal style for messages
+			view = "notify", -- Use a minimal style for messages
 		},
 		popupmenu = {
-			enabled = true,                                           -- Enable the popup menu UI
-			backend = "nui",                                          -- Use `nui` for popup UI
+			enabled = true,                                       -- Enable the popup menu UI
+			backend = "nui",                                      -- Use `nui` for popup UI
 			win_options = {
-				winblend = 10,                                          -- Add transparency
+				winblend = 10,                                      -- Add transparency
 				winhighlight = "Normal:Normal,FloatBorder:FloatBorder", -- Highlighting
 			},
 		},
@@ -51,11 +51,11 @@ return -- lazy.nvim
 					col = "50%", -- Center horizontally
 				},
 				size = {
-					width = "60%",   -- Auto-adjust width
+					width = "60%", -- Auto-adjust width
 					height = "auto", -- Auto-adjust height
 				},
 				win_options = {
-					winblend = 10,                                                        -- Transparency
+					winblend = 10,                                                   -- Transparency
 					winhighlight = "NormalFloat:MyNormalFloat,FloatBorder:MyFloatBorder", -- Custom highlights
 				},
 			},
@@ -101,7 +101,7 @@ return -- lazy.nvim
 		lsp = {
 			progress = {
 				enabled = true, -- Show LSP progress in the UI
-				view = "mini",  -- Minimal style for LSP progress
+				view = "mini", -- Minimal style for LSP progress
 			},
 			override = {
 				["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -110,10 +110,10 @@ return -- lazy.nvim
 			},
 		},
 		presets = {
-			bottom_search = true,         -- Use a bottom search bar like in IDEs
-			command_palette = false,      -- Disable the command palette preset
+			bottom_search = true,      -- Use a bottom search bar like in IDEs
+			command_palette = false,   -- Disable the command palette preset
 			long_message_to_split = true, -- Split long messages into a separate buffer
-			inc_rename = true,            -- for inc-rename to display smaller
+			inc_rename = true,         -- for inc-rename to display smaller
 		},
 		routes = {
 			{
