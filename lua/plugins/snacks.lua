@@ -75,7 +75,7 @@ return {
 			},
 		},
 		notifier = {
-			enabled = true,
+			enabled = false,
 			style = "compact",
 		},
 		quickfile = { enabled = true },

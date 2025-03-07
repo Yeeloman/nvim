@@ -1,11 +1,65 @@
--- if true then return {} end
+local pg = require("shared.PaletteGen")
+local wal_colors = pg.read_wal_colors()
+local colors = pg.colors_to_strings(wal_colors)
+
 return -- lazy.nvim
 {
 	"folke/noice.nvim",
 	event = "VeryLazy",
 	dependencies = {
 		"MunifTanjim/nui.nvim",
-		"rcarriga/nvim-notify",
+		{
+			"rcarriga/nvim-notify",
+			event = "VeryLazy",
+			opts = {
+				stages = "fade_in_slide_out", -- fade
+				max_width = 50,
+				timeout = 5000,
+				render = "wrapped-compact",
+				top_down = true,
+				background_colour = colors[2] or "#1e1e2e",
+				animate = true,
+				icons = {
+					DEBUG = "󱐌", -- 
+					WARN = "", -- 
+					ERROR = "", --    
+					TRACE = "󱑽", --   󰙴
+					INFO = "", --      
+				},
+			},
+			config = function(_, opts)
+				require("notify").setup(opts)
+				vim.notify = require("notify")
+				-- Set custom highlight groups for each level
+				vim.api.nvim_set_hl(0, "NotifyDEBUGBorder", { fg = colors[5] or "#0000FF" }) -- Debug Border Color
+				vim.api.nvim_set_hl(0, "NotifyDEBUGIcon", { fg = colors[5] or "#0000FF" }) -- Debug Icon Color
+				vim.api.nvim_set_hl(0, "NotifyDEBUGTitle", { fg = colors[5] or "#0000FF" }) -- Debug Title Color
+				vim.api.nvim_set_hl(0, "NotifyDEBUGText", { fg = colors[5] or "#0000FF" }) -- Debug Text Color
+
+				vim.api.nvim_set_hl(0, "NotifyINFOBorder", { fg = colors[4] or "#00FF00" }) -- Info Border Color
+				vim.api.nvim_set_hl(0, "NotifyINFOIcon", { fg = colors[4] or "#00FF00" }) -- Info Icon Color
+				vim.api.nvim_set_hl(0, "NotifyINFOTitle", { fg = colors[4] or "#00FF00" }) -- Info Title Color
+				vim.api.nvim_set_hl(0, "NotifyINFOText", { fg = colors[4] or "#00FF00" }) -- Info Text Color
+
+				vim.api.nvim_set_hl(0, "NotifyWARNBorder", { fg = colors[3] or "#FFFF00" }) -- Warn Border Color
+				vim.api.nvim_set_hl(0, "NotifyWARNIcon", { fg = colors[3] or "#FFFF00" }) -- Warn Icon Color
+
+
+				vim.api.nvim_set_hl(0, "NotifyWARTitle", { fg = colors[3] or "#FFFF00" }) -- Warn Title Color
+
+				vim.api.nvim_set_hl(0, "NotifyWARNText", { fg = colors[3] or "#FFFF00" }) -- Warn Text Color
+
+				vim.api.nvim_set_hl(0, "NotifyERRORBorder", { fg = colors[6] or "#FF0000" }) -- Error Border Color
+				vim.api.nvim_set_hl(0, "NotifyERRORIcon", { fg = colors[6] or "#FF0000" }) -- Error Icon Color
+				vim.api.nvim_set_hl(0, "NotifyERRORTitle", { fg = colors[6] or "#FF0000" }) -- Error Title Color
+				vim.api.nvim_set_hl(0, "NotifyERRORText", { fg = colors[6] or "#FF0000" }) -- Error Text Color
+
+				-- vim.notify("This is a DEBUG message", vim.log.levels.DEBUG)
+				-- vim.notify("This is an INFO message", vim.log.levels.INFO)
+				-- vim.notify("This is a WARN message", vim.log.levels.WARN)
+				-- vim.notify("This is an ERROR message", vim.log.levels.ERROR)
+			end
+		},
 	},
 	opts = {
 		cmdline = {
@@ -101,7 +155,7 @@ return -- lazy.nvim
 		lsp = {
 			progress = {
 				enabled = true, -- Show LSP progress in the UI
-				view = "mini", -- Minimal style for LSP progress
+				view = "mini", -- mini notify hover popup split notify_send
 			},
 			override = {
 				["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -127,14 +181,12 @@ return -- lazy.nvim
 		require("noice").setup(opts)
 
 		-- Define custom highlights
-		local shared_colors = require("shared.PaletteGen")
-		local wal_colors = shared_colors.colors_to_strings(shared_colors.read_wal_colors())
-		vim.api.nvim_set_hl(0, "NoiceCmdlineIcon", { fg = wal_colors[3] or "#d360aa", bold = true }) -- Default command-line icon
+		vim.api.nvim_set_hl(0, "NoiceCmdlineIcon", { fg = colors[3] or "#d360aa", bold = true }) -- Default command-line icon
 
 		-- Popup Menu Background Color
 		-- vim.api.nvim_set_hl(0, "MyPopupNormal", { bg = wal_colors[1] or "#1e1e2e", fg = "#cdd6f4" })
 
 		-- Popup Menu Border Color
-		vim.api.nvim_set_hl(0, "MyPopupBorder", { fg = wal_colors[3] or "#f5e0dc", bold = true })
+		vim.api.nvim_set_hl(0, "MyPopupBorder", { fg = colors[3] or "#f5e0dc", bold = true })
 	end,
 }
