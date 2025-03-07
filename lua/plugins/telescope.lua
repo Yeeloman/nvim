@@ -3,56 +3,73 @@ return {
 		'nvim-telescope/telescope.nvim',
 		dependencies = {
 			'nvim-lua/plenary.nvim',
+			'rcarriga/nvim-notify',
 			'nvim-lua/popup.nvim',
 			'nvim-telescope/telescope-media-files.nvim',
 			"desdic/telescope-rooter.nvim",
 		},
-		config = function()
-			require('telescope').setup({
-				pickers = {
-					buffers = {
-						theme = "dropdown", -- Use a predefined theme like dropdown, cursor, or ivy
-						previewer = false,
-						layout_config = {
-							width = 0.4,
-							height = 0.3,
-							prompt_position = "top",
-						},
-						mappings = {
-							i = {
-								["<C-d>"] = "delete_buffer",
-							},
-							n = {
-								["<C-d>"] = "delete_buffer",
-							},
-						},
+		opts = {
+			pickers = {
+				buffers = {
+					theme = "dropdown", -- Use a predefined theme like dropdown, cursor, or ivy
+					previewer = false,
+					layout_config = {
+						width = 0.4,
+						height = 0.3,
+						prompt_position = "top",
 					},
-					find_files = {
-						theme = "ivy",
-						previewer = true,
-						layout_config = {
-							height = 0.7,
-							prompt_position = "top",
+					mappings = {
+						i = {
+							["<C-d>"] = "delete_buffer",
 						},
-					},
-					live_grep = {
-						theme = "dropdown",
-						previewer = true,
-						layout_config = {
-							height = 0.3,
-							prompt_position = "top",
+						n = {
+							["<C-d>"] = "delete_buffer",
 						},
 					},
 				},
-			})
+				find_files = {
+					theme = "ivy",
+					previewer = true,
+					layout_config = {
+						height = 0.7,
+						prompt_position = "top",
+					},
+				},
+				live_grep = {
+					theme = "dropdown",
+					previewer = true,
+					layout_config = {
+						height = 0.3,
+						prompt_position = "top",
+					},
+				},
+			},
+
+			extensions = {
+				notify = {
+					-- Customize how notifications are displayed
+					theme = "ivy", -- Options: dropdown, ivy, cursor
+					layout_config = {
+						height = 0.4, -- Adjust height
+						width = 0.8, -- Adjust width
+					},
+					border = true, -- Add border if you like
+				}
+			}
+		},
+		config = function(_, opts)
+			require('telescope').setup(opts)
+			require("telescope").load_extension("notify")
 
 			local builtin = require('telescope.builtin')
-
 			vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 			vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 			vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 			vim.keymap.set('n', '<leader>fa', builtin.lsp_document_symbols, { desc = 'Telescope find functions' })
 			vim.keymap.set('n', '<leader>fm', "<cmd>Telescope media_files<CR>", { desc = 'Telescope find media files' })
+			vim.keymap.set('n', '<leader>nh',
+				"<cmd>lua require('telescope').extensions.notify.notify(require('telescope.themes').get_ivy())<CR>",
+				{ desc = '[N]otify [H]istory', noremap = true, silent = true })
 			vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = 'Telescope Git files' })
 			-- vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 		end,
@@ -76,7 +93,7 @@ return {
 					["rooter"] = {
 						enable = true,
 						patterns = { ".git" }
-					}
+					},
 				}
 			}
 			require("telescope").load_extension("ui-select")

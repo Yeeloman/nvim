@@ -93,6 +93,10 @@ return -- lazy.nvim
 				winhighlight = "Normal:Normal,FloatBorder:FloatBorder", -- Highlighting
 			},
 		},
+		history = {
+			view = "popup",                           -- Show history in a split window instead of a popup
+			opts = { enter = true, format = "details" }, -- Enter mode & show details
+		},
 		views = {
 			-- Custom view for the cmdline
 			cmdline = {
@@ -172,7 +176,7 @@ return -- lazy.nvim
 		routes = {
 			{
 				filter = { event = "msg_show", kind = "search_count" },
-				view = "mini",
+				view = "notify", -- used to be mini
 			},
 		},
 	},
