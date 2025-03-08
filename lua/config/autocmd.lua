@@ -40,6 +40,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 
+
 -- Open mini-files if nvim is opened with a dir as an argument
 -- vim.api.nvim_create_autocmd("VimEnter", {
 -- 	callback = function()

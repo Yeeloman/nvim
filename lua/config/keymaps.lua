@@ -44,7 +44,12 @@ keymap.set('n', 'j', 'gj', silent_opts)
 keymap.set('n', 'k', 'gk', silent_opts)
 
 -- Window management
-keymap.set('n', '<leader>v', '<C-w>v', { noremap = true, silent = true, desc = "Split window vertically" })   -- split window vertically
+keymap.set(
+	'n',
+	'<leader>v',
+	':vsplit ',
+	{ noremap = true, silent = true, desc = "Split window vertically" }
+)                                                                                                             -- split window vertically
 keymap.set('n', '<leader>h', '<C-w>s', { noremap = true, silent = true, desc = "Split window horizontally" }) -- split window horizontally
 keymap.set('n', '<leader>sr', '<C-w>=', { noremap = true, silent = true, desc = "Reset window size" })        -- make split windows equal width & height
 keymap.set('n', '<leader>xs', ':close<CR>', { noremap = true, silent = true, desc = "Close current split" })  -- close current split window
