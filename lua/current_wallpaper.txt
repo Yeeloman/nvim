@@ -1,1 +1,0 @@
-/home/yeeloman/.config/nvim/.wallpapers/pixel_one.jpg
