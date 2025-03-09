@@ -44,7 +44,13 @@ return {
 					},
 				},
 			},
-
+			defaults = {
+				mappings = {
+					i = {
+						["<Esc>"] = require('telescope.actions').close
+					},
+				},
+			},
 			extensions = {
 				notify = {
 					-- Customize how notifications are displayed
