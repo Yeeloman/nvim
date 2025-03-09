@@ -30,6 +30,14 @@ return {
 				find_files = {
 					theme = "ivy",
 					previewer = true,
+
+					defaults = {
+						mappings = {
+							i = {
+								["<Esc>"] = require('telescope.actions').close
+							},
+						},
+					},
 					layout_config = {
 						height = 0.7,
 						prompt_position = "top",
@@ -37,6 +45,13 @@ return {
 				},
 				live_grep = {
 					theme = "dropdown",
+					defaults = {
+						mappings = {
+							i = {
+								["<esc>"] = require('telescope.actions').close
+							},
+						},
+					},
 					previewer = true,
 					layout_config = {
 						height = 0.3,
@@ -55,6 +70,17 @@ return {
 				notify = {
 					-- Customize how notifications are displayed
 					theme = "ivy", -- Options: dropdown, ivy, cursor
+					mappings = {
+						-- Override default mappings
+						i = {
+							["<Esc>"] = require('telescope.actions').close,
+							["<CR>"] = require('telescope.actions').select_default,
+						},
+						n = {
+							["<Esc>"] = require('telescope.actions').close,
+							["<CR>"] = require('telescope.actions').select_default,
+						},
+					},
 					layout_config = {
 						height = 0.4, -- Adjust height
 						width = 0.8, -- Adjust width
