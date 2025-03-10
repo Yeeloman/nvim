@@ -58,6 +58,9 @@ return -- lazy.nvim
 				-- vim.notify("This is an INFO message", vim.log.levels.INFO)
 				-- vim.notify("This is a WARN message", vim.log.levels.WARN)
 				-- vim.notify("This is an ERROR message", vim.log.levels.ERROR)
+				vim.keymap.set("n", "<leader>nd", function()
+					require("notify").dismiss()
+				end, { desc = "Dismiss notifications" })
 			end
 		},
 	},
