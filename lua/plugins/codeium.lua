@@ -8,11 +8,12 @@ return {
 		-- Optionally disable cmp source if using virtual text only
 		enable_cmp_source = false,
 		virtual_text = {
-			enabled = true,
+			enabled = false,
 			-- These are the defaults
 
 			-- Set to true if you never want completions to be shown automatically.
 			manual = false,
+
 			-- A mapping of filetype to true or false, to enable virtual text.
 			filetypes = {},
 			-- Whether to enable virtual text of not for filetypes not specifically listed above.
