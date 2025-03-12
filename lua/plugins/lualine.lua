@@ -99,6 +99,30 @@ return {
 			end
 		end
 
+		local function interpolate_color(color1, color2, step)
+			local blend = function(c1, c2, step)
+				return math.floor(c1 + (c2 - c1) * step)
+			end
+			local r1, g1, b1 = tonumber(color1:sub(2, 3), 16), tonumber(color1:sub(4, 5), 16), tonumber(color1:sub(6, 7), 16)
+			local r2, g2, b2 = tonumber(color2:sub(2, 3), 16), tonumber(color2:sub(4, 5), 16), tonumber(color2:sub(6, 7), 16)
+
+			local r = blend(r1, r2, step)
+			local g = blend(g1, g2, step)
+			local b = blend(b1, b2, step)
+
+			return string.format("#%02X%02X%02X", r, g, b)
+		end
+
+		local function get_middle_color()
+			local color1 = get_mode_color()
+			local color2 = get_opposite_color(color1)
+
+			-- Return an interpolated color between the two based on a step factor (smooth transition)
+			local step = 0.5 -- adjust this value (0.0 -> color1, 1.0 -> color2)
+			return interpolate_color(color1, color2, step)
+		end
+
+
 		-- Conditions
 		local conditions = {
 			buffer_not_empty = function()
@@ -286,7 +310,7 @@ return {
 			color = function()
 				local virtual_env = vim.env.VIRTUAL_ENV
 				if virtual_env then
-					return { fg = get_animated_color(), gui = 'bold' }
+					return { fg = get_mode_color(), gui = 'bold,strikethrough' }
 				else
 					return { fg = get_mode_color(), gui = 'bold' }
 				end
@@ -304,7 +328,7 @@ return {
 				return ''
 			end,
 			color = function()
-				return { fg = get_mode_color() }
+				return { fg = get_middle_color() }
 			end,
 			cond = conditions.hide_in_width,
 		}
@@ -409,7 +433,7 @@ return {
 				return ''
 			end,
 			color = function()
-				return { fg = get_mode_color() }
+				return { fg = get_middle_color() }
 			end,
 			cond = conditions.hide_in_width,
 		}
