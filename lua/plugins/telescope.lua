@@ -9,6 +9,7 @@ return {
 			"desdic/telescope-rooter.nvim",
 		},
 		opts = {
+
 			pickers = {
 				buffers = {
 					theme = "dropdown", -- Use a predefined theme like dropdown, cursor, or ivy
@@ -61,6 +62,14 @@ return {
 				},
 			},
 			defaults = {
+
+				file_ignore_patterns = {
+					"node_modules",
+					"build",
+					"dist",
+					"env",
+					".git",
+				},
 				mappings = {
 					i = {
 						["<Esc>"] = require('telescope.actions').close
