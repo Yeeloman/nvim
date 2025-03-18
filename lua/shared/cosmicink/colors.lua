@@ -35,9 +35,8 @@ local colors = {
 	RED      = final_palette[9] or M.default_colors.RED,     -- Generally for errors and warnings
 }
 
-M.color = colors
 
-M.get_mode_color = function()
+local function get_mode_color()
 	local mode_color = {
 		n      = colors.DARKBLUE,
 		i      = colors.VIOLET,
@@ -63,7 +62,7 @@ M.get_mode_color = function()
 	return mode_color[vim.fn.mode()]
 end
 
-M.get_opposite_color = function(mode_color)
+local function get_opposite_color(mode_color)
 	local opposite_colors = {
 		[colors.RED]      = colors.CYAN,
 		[colors.BLUE]     = colors.ORANGE,
@@ -78,7 +77,7 @@ M.get_opposite_color = function(mode_color)
 	return opposite_colors[mode_color] or colors.FG
 end
 
-M.get_animated_color = function(mode_color)
+local function get_animated_color(mode_color)
 	local all_colors = {
 		colors.RED,
 		colors.BLUE,
@@ -104,7 +103,7 @@ M.get_animated_color = function(mode_color)
 	end
 end
 
-M.interpolate_color = function(color1, color2, step)
+local function interpolate_color(color1, color2, step)
 	local blend = function(c1, c2, step)
 		return math.floor(c1 + (c2 - c1) * step)
 	end
@@ -118,13 +117,21 @@ M.interpolate_color = function(color1, color2, step)
 	return string.format("#%02X%02X%02X", r, g, b)
 end
 
-M.get_middle_color = function()
-	local color1 = M.get_mode_color()
-	local color2 = M.get_opposite_color(color1)
+local function get_middle_color()
+	local color1 = get_mode_color()
+	local color2 = get_opposite_color(color1)
 
 	-- Return an interpolated color between the two based on a step factor (smooth transition)
 	local color_step = 0.5 -- adjust this value (0.0 -> color1, 1.0 -> color2)
-	return M.interpolate_color(color1, color2, color_step)
+	return interpolate_color(color1, color2, color_step)
 end
+
+
+M.color = colors
+M.get_mode_color = get_mode_color
+M.get_opposite_color = get_opposite_color
+M.get_middle_color = get_middle_color
+M.get_animated_color = get_animated_color
+M.interpolate_color = interpolate_color
 
 return M

@@ -57,7 +57,7 @@ local config = {
 				color = function()
 					return {
 						fg = ink_colors.color.FG,
-						gui = 'bold,italic,strickthrough',
+						gui = 'bold,italic',
 					}
 				end,
 			},
@@ -79,7 +79,7 @@ end
 
 -- LEFT
 ins_left {
-	mode,
+	ink_utils.mode,
 	color = function()
 		local mode_color = ink_colors.get_mode_color()
 		return {
