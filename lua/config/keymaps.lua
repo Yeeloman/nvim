@@ -39,9 +39,10 @@ keymap.set("n", "<F4>", ":source ~/.config/nvim/init.lua<CR>", opts)
 -- changing visual block mode keybind
 keymap.set('n', 'gv', '<C-v>', opts)
 
+
 -- navigate wrapped lines gracefully
-keymap.set('n', 'j', 'gj', silent_opts)
-keymap.set('n', 'k', 'gk', silent_opts)
+keymap.set({ 'n', 'v' }, 'j', 'gj', silent_opts)
+keymap.set({ 'n', 'v' }, 'k', 'gk', silent_opts)
 
 -- Window management
 -- split window vertically

@@ -63,6 +63,7 @@ opt.inccommand = "split"
 
 vim.o.undofile = true -- Save undo history (default: false)
 
+
 -- this two options makes the cmdline appear under lualine
 -- vim.o.wildmenu = true
 -- vim.o.wildmode = "longest:full,full"
