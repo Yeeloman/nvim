@@ -36,7 +36,7 @@ return {
 					defaults = {
 						mappings = {
 							i = {
-								["<Esc>"] = require('telescope.actions').close
+								-- ["<Esc>"] = require('telescope.actions').close
 							},
 						},
 					},
@@ -50,7 +50,7 @@ return {
 					defaults = {
 						mappings = {
 							i = {
-								["<esc>"] = require('telescope.actions').close
+								-- ["<esc>"] = require('telescope.actions').close
 							},
 						},
 					},
@@ -72,7 +72,7 @@ return {
 				},
 				mappings = {
 					i = {
-						["<Esc>"] = require('telescope.actions').close
+						-- ["<Esc>"] = require('telescope.actions').close
 					},
 				},
 			},
@@ -83,7 +83,7 @@ return {
 					mappings = {
 						-- Override default mappings
 						i = {
-							["<Esc>"] = require('telescope.actions').close,
+							-- ["<Esc>"] = require('telescope.actions').close,
 							["<CR>"] = require('telescope.actions').select_default,
 						},
 						n = {
