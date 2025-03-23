@@ -7,7 +7,7 @@ local ink_colors = require("shared.cosmicink.colors")
 math.randomseed(os.time())
 -- Icon sets for random selection
 M.icon_sets = {
-	stars = { '★', '☆', '✧', '✦', '✶', '✷', '✸', '✹' }, -- Set of star-like icons
+	-- stars = { '★', '☆', '✧', '✦', '✶', '✷', '✸', '✹' }, -- Set of star-like icons
 	runes = {
 		'✠',
 		'⛧',
@@ -28,7 +28,7 @@ M.icon_sets = {
 		'⚚',
 		'🜏',
 	}, -- Set of rune-like symbols
-	hearts = { '❤', '♥', '♡', '❦', '❧' }, -- Set of heart-shaped icons
+	-- hearts = { '❤', '♥', '♡', '❦', '❧' }, -- Set of heart-shaped icons
 	waves = { '≈', '∿', '≋', '≀', '⌀', '≣', '⌇' }, -- Set of wave-like symbols
 	crosses = { '☨', '✟', '♰', '♱', '⛨', "" }, -- Set of cross-like symbols
 }

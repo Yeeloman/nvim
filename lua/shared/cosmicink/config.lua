@@ -278,10 +278,10 @@ ins_right(
 
 ins_right {
 	'branch',
-	icon = ' ',
+	icon = '', -- 
 	fmt = function(branch)
 		if branch == '' or branch == nil then
-			return 'No Repo'
+			return 'No Repo '
 		end
 
 		-- Function to truncate a segment to a specified length
@@ -305,7 +305,7 @@ ins_right {
 
 		-- If there's only one segment (no '/'), return it as-is
 		if #segments == 1 then
-			return segments[1]
+			return segments[1] .. " "
 		end
 
 		-- Capitalize the first segment and lowercase the rest (except the last one)
@@ -323,7 +323,7 @@ ins_right {
 			truncated_branch = truncated_branch:sub(1, max_total_length) .. '…'
 		end
 
-		return truncated_branch
+		return truncated_branch .. ' '
 	end,
 	color = function()
 		local mode_color = ink_colors.get_mode_color()
