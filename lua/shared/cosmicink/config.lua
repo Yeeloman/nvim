@@ -283,7 +283,42 @@ ins_right {
 		if branch == '' or branch == nil then
 			return 'No Repo'
 		end
-		return branch
+
+		-- Function to truncate a segment to a specified length
+		local function truncate_segment(segment, max_length)
+			if #segment > max_length then
+				return segment:sub(1, max_length)
+			end
+			return segment
+		end
+
+		-- Split the branch name by '/'
+		local segments = {}
+		for segment in branch:gmatch('[^/]+') do
+			table.insert(segments, segment)
+		end
+
+		-- Truncate all segments except the last one
+		for i = 1, #segments - 1 do
+			segments[i] = truncate_segment(segments[i], 1) -- Truncate to 1 character
+		end
+
+		-- Capitalize the first segment and lowercase the rest (except the last one)
+		segments[1] = segments[1]:upper() -- First segment uppercase
+		for i = 2, #segments - 1 do
+			segments[i] = segments[i]:lower() -- Other segments lowercase
+		end
+
+		-- Combine the first segments with no separator and add '›' before the last segment
+		local truncated_branch = table.concat(segments, '', 1, #segments - 1) .. '›' .. segments[#segments]
+
+		-- Ensure the final result doesn't exceed a maximum length
+		local max_total_length = 15
+		if #truncated_branch > max_total_length then
+			truncated_branch = truncated_branch:sub(1, max_total_length) .. '...'
+		end
+
+		return truncated_branch
 	end,
 	color = function()
 		local mode_color = ink_colors.get_mode_color()
