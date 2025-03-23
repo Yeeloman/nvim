@@ -315,7 +315,7 @@ ins_right {
 		-- Ensure the final result doesn't exceed a maximum length
 		local max_total_length = 15
 		if #truncated_branch > max_total_length then
-			truncated_branch = truncated_branch:sub(1, max_total_length) .. '...'
+			truncated_branch = truncated_branch:sub(1, max_total_length) .. '…'
 		end
 
 		return truncated_branch
