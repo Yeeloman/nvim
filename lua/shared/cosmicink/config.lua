@@ -303,6 +303,11 @@ ins_right {
 			segments[i] = truncate_segment(segments[i], 1) -- Truncate to 1 character
 		end
 
+		-- If there's only one segment (no '/'), return it as-is
+		if #segments == 1 then
+			return segments[1]
+		end
+
 		-- Capitalize the first segment and lowercase the rest (except the last one)
 		segments[1] = segments[1]:upper() -- First segment uppercase
 		for i = 2, #segments - 1 do
