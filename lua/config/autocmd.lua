@@ -39,6 +39,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 	end
 })
 
+-- Activate Django support for html files
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = { "*/templates/*.html", "*/templates/**/*.html" },
+	callback = function()
+		vim.opt.filetype = "htmldjango"
+	end,
+})
 
 
 -- Open mini-files if nvim is opened with a dir as an argument
