@@ -114,7 +114,7 @@ return {
 	},
 
 	keys = {
-		{ "<leader>²",  function() Snacks.scratch() end,            desc = "Toggle Scratch Buffer" },
+		{ "<leader>os", function() Snacks.scratch() end,            desc = "Toggle Scratch Buffer" },
 		{ "<leader>tS", function() Snacks.scratch.select() end,     desc = "Select Scratch Buffer" },
 		-- { "<leader>nh", function() Snacks.notifier.show_history() end, desc = "Notification History" },
 		{ "<leader>bd", function() Snacks.bufdelete() end,          desc = "Delete Buffer" },
