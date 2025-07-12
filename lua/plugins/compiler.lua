@@ -3,7 +3,8 @@ return {
 		"Zeioth/compiler.nvim",
 		cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
 		dependencies = { "stevearc/overseer.nvim", "nvim-telescope/telescope.nvim" },
-		event = "VeryLazy",
+		-- event = "VeryLazy",
+		lazy = true,
 		opts = {},
 		config = function(_, opts)
 			require("compiler").setup(opts)

@@ -14,7 +14,10 @@ return {
 				{
 					section = "terminal",
 					cmd =
-					"chafa $(echo $WAL_WALLPAPER) --format symbols --symbols block --size 60x17 --stretch || chafa $HOME/.config/nvim/lua/eclipse.jpg --format symbols --symbols block --size 60x17 --stretch; sleep .1",
+					--
+					"chafa $HOME/.config/nvim/lua/eclipse.jpg --format symbols --symbols block --size 60x17 --stretch 2>/dev/null || true; sleep 0.1",
+					-- "chafa $(cat ~/.config/nvim/lua/current_wallpaper.txt) --format symbols --symbols block --size 60x17 --stretch || chafa $HOME/.config/nvim/lua/eclipse.jpg --format symbols --symbols block --size 60x17 --stretch 2>/dev/null || true; sleep 0.1",
+					-- "chafa $(echo $WAL_WALLPAPER) --format symbols --symbols block --size 60x17 --stretch || chafa $HOME/.config/nvim/lua/eclipse.jpg --format symbols --symbols block --size 60x17 --stretch 2>/dev/null || true; sleep 0.1",
 					-- cat $HOME/.config/nvim/lua/current_wallpaper.txt
 					height = 17,
 					padding = 1,

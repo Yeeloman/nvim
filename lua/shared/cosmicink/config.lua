@@ -161,17 +161,17 @@ ins_left {
 	cond = ink_conditions.hide_in_width,
 }
 
-for _, icons in pairs(ink_utils.icon_sets_list) do
-	ins_left {
-		function() return ink_utils.get_random_icon(icons) end,
-		color = function()
-			return {
-				fg = ink_colors.get_animated_color(),
-			}
-		end,
-		cond = ink_conditions.hide_in_width,
-	}
-end
+-- for _, icons in pairs(ink_utils.icon_sets_list) do
+-- 	ins_left {
+-- 		function() return ink_utils.get_random_icon(icons) end,
+-- 		color = function()
+-- 			return {
+-- 				fg = ink_colors.get_animated_color(),
+-- 			}
+-- 		end,
+-- 		cond = ink_conditions.hide_in_width,
+-- 	}
+-- end
 
 ins_left {
 	'searchcount',
@@ -204,17 +204,17 @@ ins_right {
 	},
 }
 
-for _, icons in ipairs(ink_utils.reversed_icon_sets) do
-	ins_right {
-		function() return ink_utils.get_random_icon(icons) end,
-		color = function()
-			return {
-				fg = ink_colors.get_animated_color(),
-			}
-		end,
-		cond = ink_conditions.hide_in_width,
-	}
-end
+-- for _, icons in ipairs(ink_utils.reversed_icon_sets) do
+-- 	ins_right {
+-- 		function() return ink_utils.get_random_icon(icons) end,
+-- 		color = function()
+-- 			return {
+-- 				fg = ink_colors.get_animated_color(),
+-- 			}
+-- 		end,
+-- 		cond = ink_conditions.hide_in_width,
+-- 	}
+-- end
 
 ins_right {
 	function()
