@@ -13,9 +13,8 @@ return {
 			sections = {
 				{
 					section = "terminal",
-					cmd =
-					"chafa $(echo $WAL_WALLPAPER) --format symbols --symbols block --size 60x17 --stretch || chafa $HOME/.config/nvim/lua/eclipse.jpg --format symbols --symbols block --size 60x17 --stretch; sleep .1",
-					-- cat $HOME/.config/nvim/lua/current_wallpaper.txt
+					cmd = "cat ~/.config/nvim/.wallpapers/eclipse.txt",
+					-- "chafa $HOME/.config/nvim/lua/eclipse.jpg --format symbols --symbols block --size 60x17 --stretch",
 					height = 17,
 					padding = 1,
 				},

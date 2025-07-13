@@ -153,6 +153,7 @@ return {
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			-- capabilities.workspace = { didChangeWatchedFiles = { dynamicRegistration = true } }
 
+
 			-- Define auto-formatting on save
 			local function on_attach(client, bufnr)
 				if client.server_capabilities.documentFormattingProvider then

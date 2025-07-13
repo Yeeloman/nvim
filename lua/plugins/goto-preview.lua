@@ -1,6 +1,9 @@
 local set = vim.keymap.set
 return {
 	"rmagatti/goto-preview",
+	dependencies = {
+		"rmagatti/logger.nvim"
+	},
 	event = "BufEnter",
 	opts = {
 		width = 50, -- Width of the floating window
